@@ -131,488 +131,404 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Brewstack Coffee - Register</title>
+    <meta charset="UTF-8">
+    <title>Brewstack Coffee - Register</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
-<style>
-body {
-    background-image: url(../image/pngtree-coffee-shop-with-many-wooden-tables-and-chairs-picture-image_2611848.jpg.jpg);
-    color: #f8f3e9;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    margin: 0;
-    padding: 0;
-}
+    <style>
+    body {
+        background-image: url(../image/pngtree-coffee-shop-with-many-wooden-tables-and-chairs-picture-image_2611848.jpg.jpg);
+        color: #f8f3e9;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        margin: 0;
+        padding: 0;
+    }
 
-header, footer {
-    background: #1a1412b5;
-    color: #ecebea;
-    padding: 10px 20px;
-}
+    header,
+    footer {
+        background: #1a1412b5;
+        color: #ecebea;
+        padding: 10px 20px;
+    }
 
-footer {
-    text-align: center;
-    font-size: 14px;
-}
+    footer {
+        text-align: center;
+        font-size: 14px;
+    }
 
-/* FIXED LAYOUT, NO SCROLL */
-.page-wrapper {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
+    /* FIXED LAYOUT, NO SCROLL */
+    .page-wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
 
-.register-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-}
+    .register-container {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+    }
 
-.register-box {
-    background: #1f181699;
-    width: 100%;
-    max-width: 1200px;
-    padding: 20px 40px;
-    border-radius: 40px;
-    /* overflow: hidden; */
-    max-height: 100vh;
-    
-}
+    .register-box {
+        background: #1f181699;
+        width: 100%;
+        max-width: 1200px;
+        padding: 20px 40px;
+        border-radius: 40px;
+        /* overflow: hidden; */
+        max-height: 100vh;
 
-h2 {
-    text-align: center;
-    margin-bottom: 10px;
-    font-weight: 1000;
-    color: #f8f3e9;
-}
+    }
 
-h3 {
-    font-size: 16px;
-    margin-top: 10px;
-    border-bottom: 1px solid #c09d74;
-    padding-bottom: 3px;
-    margin-bottom: 8px;
-}
+    h2 {
+        text-align: center;
+        margin-bottom: 10px;
+        font-weight: 1000;
+        color: #f8f3e9;
+    }
 
-.form-control, select {
-    height: 28px; /* compact height */
-    font-size: 13px;
-    padding: 2px 6px;
-}
+    h3 {
+        font-size: 16px;
+        margin-top: 10px;
+        border-bottom: 1px solid #c09d74;
+        padding-bottom: 3px;
+        margin-bottom: 8px;
+    }
 
-.btn-register {
-    background-color: #4e342e;
-    width: 100%;
-    padding: 6px;
-    font-size: 14px;
-    font-weight: bold;
-    color: #c09d74;
-    border: none;
-    border-radius: 8px;
-}
+    .form-control,
+    select {
+        height: 28px;
+        /* compact height */
+        font-size: 13px;
+        padding: 2px 6px;
+    }
 
-/* Compact spacing */
-.row.g-2 {
-    --bs-gutter-y: 5px;
-    --bs-gutter-x: 8px;
-}
+    .btn-register {
+        background-color: #4e342e;
+        width: 100%;
+        padding: 6px;
+        font-size: 14px;
+        font-weight: bold;
+        color: #c09d74;
+        border: none;
+        border-radius: 8px;
+    }
+
+    /* Compact spacing */
+    .row.g-2 {
+        --bs-gutter-y: 5px;
+        --bs-gutter-x: 8px;
+    }
 
 
-.error {
-    background-color: #ffcdcdff;
-    color: brown;
-    padding: 0 10px;
-    z-index: 10;
-}
-</style>
+    .error-message {
+        color: #d9534f;
+        font-size: 13px;
+        font-weight: 500;
+        margin-top: 2px;
+        min-height: 14px;
+        display: block;
+    }
+
+    .input-error {
+        border-color: #d9534f !important;
+    }
+
+
+    /* Remove default show password icon  */
+    input[type="password"]::-ms-reveal,
+    input[type="password"]::-ms-clear {
+        display: none !important;
+    }
+
+    input[type="password"]::-webkit-textfield-decoration-container,
+    input[type="password"]::-webkit-credentials-auto-fill-button {
+        display: none !important;
+        visibility: hidden;
+        pointer-events: none;
+    }
+
+    .span {
+        color: red;
+    }
+    </style>
 </head>
+
 <body>
 
-<div class="page-wrapper">
+    <div class="page-wrapper">
 
-<header class="d-flex justify-content-between align-items-center">
-    <h4 class="m-0">Brewstack Coffee</h4>
+        <header class="d-flex justify-content-between align-items-center">
+            <h4 class="m-0">Brewstack Coffee</h4>
 
-    <?php if (!empty($_SESSION['username'])): ?>
-        <form action="logout.php" method="post">
-            <button type="submit" class="btn btn-sm btn-secondary">Logout</button>
-        </form>
-    <?php else: ?>
-        <a href="login.php" class="btn btn-sm btn-warning">Login</a>
-    <?php endif; ?>
-</header>
+            <?php if (!empty($_SESSION['username'])): ?>
+            <form action="logout.php" method="post">
+                <button type="submit" class="btn btn-sm btn-secondary">Logout</button>
+            </form>
+            <?php else: ?>
+            <a href="login.php" class="btn btn-sm btn-warning">Login</a>
+            <?php endif; ?>
+        </header>
 
-<div class="register-container">
-<div class="register-box">
-<h2>Registration Form</h2>
-<form id="register-form" action="register.php" method="POST" novalidate>
+        <div class="register-container">
+            <div class="register-box">
+                <h2>Registration Form</h2>
+                <form id="register-form" action="register.php" method="POST" novalidate></form>
+                <!-- PERSONAL INFO -->
+                <h3>Personal Information</h3>
+                <div class="row g-2">
 
-    <!-- PERSONAL INFO -->
-    <!--<h3>Personal Information</h3>
-    <div class="row g-2">
-        <div class="col-md-3">
-            <label>ID No. *</label>
-            <input type="text" class="form-control" name="id_number" readonly value="<?php echo $nextIdNumber; ?>"
-            data-validate="id_number">
-            <div class="error"></div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>ID No. <span class="span">*</span></label>
+                            <input type="text" class="form-control is-invalid" name="id_number" readonly
+                                value="<?php echo $nextIdNumber; ?>" data-validate="required|id_number">
+                            <small class="error-message invalid-feedback">error</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>First Name <span class="span">*</span></label>
+                            <input type="text" class="form-control is-invalid" name="first_name" required
+                                data-validate="required|first_name">
+                            <small class="error-message invalid-feedback">error</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Middle <span class="span" style="font-style:italic;">(optional)</span></label>
+                            <input type="text" class="form-control is-invalid" name="middle_name"
+                                oninput="validateMiddleName(this)" data-validate="middle_name">
+                            <small class="error-message invalid-feedback">error</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>LastName<span class="span">*</span></label>
+                            <input type="text" class="form-control is-invalid" name="last_name" required
+                                data-validate="required|last_name">
+                            <small class="error-message invalid-feedback">error</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Extenstion name <span class="span" ;
+                                    style="font-style:italic;">(optional)</span></label>
+                            <select class="form-control is-invalid" name="extension_name" data-validate="required">
+                                <option value="">None</option>
+                                <option value="Jr">Jr</option>
+                                <option value="Sr">Sr</option>
+                            </select>
+                            <small class="error-message invalid-feedback">error</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Sex <span class="span">*</span></label>
+                            <select id="sex" class="form-control is-invalid" name="sex" required
+                                data-validate="required">
+                                <option value="">Select</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                            </select>
+                            <small class="error-message invalid-feedback">error</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Birthdate <span class="span">*</span></label>
+                            <input type="date" class="form-control is-invalid" name="birthdate" required
+                                data-validate="required|birthdate">
+                            <small class="error-message invalid-feedback">error</small>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Age <span class="span">*</span></label>
+                            <input type="text" class="form-control is-invalid" name="age" readonly
+                                data-validate="required|age">
+                            <small class="error-message invalid-feedback">error</small>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- ADDRESS -->
+                <h3>Address</h3>
+                <div class="row g-2">
+                    <div class="col-md-3">
+                        <label>Purok <span class="span">*</span></label>
+                        <input type="text" class="form-control is-invalid" name="purok" required
+                            data-validate="required|purok">
+                        <small class="error-message invalid-feedback">error</small>
+
+                    </div>
+                    <div class="col-md-3">
+                        <label>Barangay <span class="span">*</span></label>
+                        <input type="text" class="form-control is-invalid" name="barangay" required
+                            data-validate="required|barangay">
+                        <small class="error-message invalid-feedback">error</small>
+
+                    </div>
+                    <div class="col-md-3">
+                        <label>City <span class="span">*</span></label>
+                        <input type="text" class="form-control is-invalid" name="city" required
+                            data-validate="required|city">
+                        <small class="error-message invalid-feedback">error</small>
+                    </div>
+                    <div class="col-md-3">
+                        <label>Province <span class="span">*</span></label>
+                        <input type="text" class="form-control is-invalid" name="province" required
+                            data-validate="required|province">
+                        <small class="error-message invalid-feedback">error</small>
+
+                    </div>
+                    <div class="col-md-3">
+                        <label>Country <span class="span">*</span></label>
+                        <input type="text" class="form-control is-invalid" name="country" required
+                            data-validate="required|country">
+                        <small class="error-message invalid-feedback">error</small>
+
+                    </div>
+                    <div class="col-md-3">
+                        <label>Zip <span class="span">*</span></label>
+                        <input type="text" class="form-control is-invalid" maxlength="4" name="zipcode" required
+                            data-validate="required|zipcode">
+                        <small class="error-message invalid-feedback">error</small>
+
+                    </div>
+                </div>
+
+                <!-- CREDENTIALS -->
+                <h3>Credentials</h3>
+                <div class="row g-2">
+                    <div class="col-md-3">
+                        <label>Email <span class="span">*</span></label>
+                        <input type="email" class="form-control is-invalid" name="email" required
+                            data-validate="required|email">
+                        <small class="error-message invalid-feedback">error</small>
+
+                    </div>
+                    <div class="col-md-3">
+                        <label>Username <span class="span">*</span></label>
+                        <input type="text" class="form-control is-invalid" name="username" required
+                            data-validate="required|username">
+                        <small class="error-message invalid-feedback">error</small>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Password <span class="span">*</span></label>
+                        <div class="position-relative">
+                            <input type="password" class="form-control" name="password" required
+                                data-validate="required|password">
+                            <button type="button"
+                                class="toggle-password-btn position-absolute top-50 end-0 translate-middle-y bg-transparent border-0 "
+                                data-type="password" aria-label="Toggle password visibility">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <small class="error-message invalid-feedback">error</small>
+
+                        <div class="password-strength-bar mt-2">
+                            <div class="strength-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <label>Re-enter Password <span class="span">*</span></label>
+                        <div class="position-relative">
+                            <input type="password" class="form-control" name="repassword" required
+                                data-validate="required|repassword">
+                            <button type="button"
+                                class="toggle-password-btn position-absolute top-50 end-0 translate-middle-y bg-transparent border-0"
+                                data-type="repassword" aria-label="Toggle password visibility">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <small class="error-message invalid-feedback">error</small>
+                    </div>
+
+
+                </div>
+
+                <!-- SECURITY -->
+                <h3>Security Questions</h3>
+                <div class="row g-2">
+                    <div class="col-md-4">
+                        <label>Q1 <span class="span">*</span></label>
+                        <select class="form-control is-invalid" name="a1_question" required data-validate="required">
+                            <option value="">Select</option>
+                            <option value="teacher"> Who is your favorite teacher in high school? </option>
+                            <option value="pet">What is the name of your favorite pet? </option>
+                            <option value="best_friend">Who is your best friend in Elementary? </option>
+
+                        </select>
+                        <input type="text" class="form-control mt-1 is-invalid" name="a1_answer" required
+                            data-validate="required|a1_answer">
+                        <small class="error-message invalid-feedback">error</small>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Q2 <span class="span">*</span></label>
+                        <select class="form-control is-invalid" name="a2_question" required data-validate="required">
+                            <option value="">Select</option>
+                            <option value="fav_coffee">Favorite coffee?</option>
+                        </select>
+                        <input type="text" class="form-control mt-1 is-invalid" name="a2_answer" required
+                            data-validate="required|a2_answer">
+                        <small class="error-message invalid-feedback">error</small>
+                    </div>
+                    <div class="col-md-4">
+                        <label>Q3 <span class="span">*</span></label>
+                        <select class="form-control is-invalid" name="a3_question" required data-validate="required">
+                            <option value="">Select</option>
+                            <option value="ideal_coffee">Ideal cup?</option>
+                        </select>
+                        <input type="text" class="form-control mt-1 is-invalid" name="a3_answer" required
+                            data-validate="required|a3_answer">
+                        <small class="error-message invalid-feedback">error</small>
+
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="mt-3 btn btn-success w-25">Register</button>
+                </div>
+
+
+                </form>
+            </div>
         </div>
-        <div class="col-md-3">
-            <label>First Name *</label>
-            <input type="text" class="form-control" name="first_name" required 
-            data-validate="first_name">
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Middle</label>
-            <input type="text" class="form-control" name="middle_name">
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Last *</label>
-            <input type="text" class="form-control" name="last_name" required
-            data-validate="last_name">
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Ext</label>
-            <select class="form-control" name="extension_name">
-                <option value="">None</option>
-                <option value="Jr">Jr</option>
-                <option value="Sr">Sr</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label>Sex *</label>
-            <select id="sex" class="form-control" name="sex" required>
-                <option value="">Select</option>
-                <option>Male</option>
-                <option>Female</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <label>Birthdate *</label>
-            <input type="date" class="form-control" name="birthdate" required>
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Age *</label>
-            <input type="text" class="form-control" name="age" readonly>
-            <div class="error"></div>
-        </div>
-    </div>
 
-    <!-- ADDRESS --
-    <h3>Address</h3>
-    <div class="row g-2">
-        <div class="col-md-3">
-            <label>Purok *</label>
-            <input type="text" class="form-control" name="purok" required>
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Barangay *</label>
-            <input type="text" class="form-control" name="barangay" required>
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>City *</label>
-            <input type="text" class="form-control" name="city" required>
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Province *</label>
-            <input type="text" class="form-control" name="province" required>
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Country *</label>
-            <input type="text" class="form-control" name="country" required>
-            <div class="error"></div>
-        </div>
-        <div class="col-md-3">
-            <label>Zip *</label>
-            <input type="text" class="form-control" maxlength="4" name="zip_code" required>
-            <div class="error"></div>
-        </div>
-    </div>
-
-    <!-- CREDENTIALS --
-    <h3>Credentials</h3>
-    <div class="row g-2">
-        <div class="col-md-3">
-            <label>Email *</label>
-            <input type="email" class="form-control" name="email" required>
-        </div>
-        <div class="col-md-3">
-            <label>Username *</label>
-            <input type="text" class="form-control" name="username" required>
-        </div>
-        <div class="col-md-3">
-            <label>Password *</label>
-            <input type="password" class="form-control" name="password" required>
-        </div>
-        <div class="col-md-3">
-            <label>Re-enter *</label>
-            <input type="password" class="form-control" name="repassword" required>
-        </div>
-    </div>
-
-    <!-- SECURITY --
-    <h3>Security Questions</h3>
-    <div class="row g-2">
-        <div class="col-md-4">
-            <label>Q1 *</label>
-            <select class="form-control" name="a1_question" required>
-                <option value="">Select</option>
-                <option value="experience">Experience?</option>
-                <option value="hot_iced">Hot or iced?</option>
-            </select>
-            <input type="text" class="form-control mt-1" name="a1_answer" required>
-        </div>
-        <div class="col-md-4">
-            <label>Q2 *</label>
-            <select class="form-control" name="a2_question" required>
-                <option value="">Select</option>
-                <option value="fav_coffee">Favorite coffee?</option>
-            </select>
-            <input type="text" class="form-control mt-1" name="a2_answer" required>
-        </div>
-        <div class="col-md-4">
-            <label>Q3 *</label>
-            <select class="form-control" name="a3_question" required>
-                <option value="">Select</option>
-                <option value="ideal_coffee">Ideal cup?</option>
-            </select>
-            <input type="text" class="form-control mt-1" name="a3_answer" required>
-        </div>
-    </div> -->
-
-
-    <!-- PERSONAL INFO -->
-<h3>Personal Information</h3>
-<div class="row g-2">
-    <div class="col-md-3">
-        <label>ID No. *</label>
-        <input type="text" class="form-control" name="id_number" readonly value="<?php echo $nextIdNumber; ?>"
-        data-validate="required|id_number">
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>First Name *</label>
-        <input type="text" class="form-control" name="first_name" required 
-        data-validate="required|first_name">
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>Middle</label>
-        <input type="text" class="form-control" name="middle_name" 
-        data-validate="middle_name">
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>Last *</label>
-        <input type="text" class="form-control" name="last_name" required
-        data-validate="required|last_name">
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>Ext</label>
-        <select class="form-control" name="extension_name" data-validate="required">
-            <option value="">None</option>
-            <option value="Jr">Jr</option>
-            <option value="Sr">Sr</option>
-        </select>
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>Sex *</label>
-        <select id="sex" class="form-control" name="sex" required data-validate="required">
-            <option value="">Select</option>
-            <option>Male</option>
-            <option>Female</option>
-        </select>
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>Birthdate *</label>
-        <input type="date" class="form-control" name="birthdate" required
-        data-validate="required|birthdate">
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>Age *</label>
-        <input type="text" class="form-control" name="age" readonly
-        data-validate="required|age">
-        <div class="error"></div>
-    </div>
-</div>
-
-<!-- ADDRESS -->
-<h3>Address</h3>
-<div class="row g-2">
-    <div class="col-md-3">
-        <label>Purok *</label>
-        <input type="text" class="form-control" name="purok" required
-        data-validate="required|purok">
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>Barangay *</label>
-        <input type="text" class="form-control" name="barangay" required
-        data-validate="required|barangay">
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>City *</label>
-        <input type="text" class="form-control" name="city" required
-        data-validate="required|city">
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>Province *</label>
-        <input type="text" class="form-control" name="province" required
-        data-validate="required|province">
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>Country *</label>
-        <input type="text" class="form-control" name="country" required
-        data-validate="required|country">
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>Zip *</label>
-        <input type="text" class="form-control" maxlength="4" name="zipcode" required
-        data-validate="required|zipcode">
-        <div class="error"></div>
-    </div>
-</div>
-
-<!-- CREDENTIALS -->
-<h3>Credentials</h3>
-<div class="row g-2">
-    <div class="col-md-3">
-        <label>Email *</label>
-        <input type="email" class="form-control" name="email" required
-        data-validate="required|email">
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>Username *</label>
-        <input type="text" class="form-control" name="username" required
-        data-validate="required|username">
-        <div class="error"></div>
-    </div>
-    <div class="col-md-3">
-        <label>Password *</label>
-        <input type="password" class="form-control" name="password" required
-        data-validate="required|password">
-        <div class="error"></div>
-
-        <button type="button" class="toggle-password-btn"
-            data-type="password" tabindex="-1" aria-label="Toggle password visibility">
-            <i class="bi bi-eye"></i>
-        </button>
-
-        <div class="password-strength-bar mt-2">
-            <div class="strength-fill"></div>
-        </div>
-    </div>
-
-    <div class="col-md-3">
-        <label>Re-enter *</label>
-        <input type="password" class="form-control" name="repassword" required
-        data-validate="required|repassword">
-        <div class="error"></div>
-
-        <button type="button" class="toggle-password-btn"
-            data-type="repassword" tabindex="-1" aria-label="Toggle password visibility">
-            <i class="bi bi-eye"></i>
-        </button>
-    </div>
-
-    <div class="col-md-3 position-relative">
-        <label>Re-enter *</label>
-        <input type="password" class="form-control" name="repassword" required
-            data-validate="required|repassword">
-        <div class="error"></div>
-
-        <!-- Password visibility toggle button -->
-        <button type="button" class="toggle-password-btn"
-                data-type="repassword" tabindex="-1" aria-label="Toggle password visibility">
-            <i class="bi bi-eye"></i>
-        </button>
-    </div>
-
-</div>
-
-<!-- SECURITY -->
-<h3>Security Questions</h3>
-<div class="row g-2">
-    <div class="col-md-4">
-        <label>Q1 *</label>
-        <select class="form-control" name="a1_question" required
-        data-validate="required">
-            <option value="">Select</option>
-            <option value="experience">Experience?</option>
-            <option value="hot_iced">Hot or iced?</option>
-        </select>
-        <input type="text" class="form-control mt-1" name="a1_answer" required
-        data-validate="required|a1_answer">
-        <div class="error invalid-feedback"></div>
-    </div>
-    <div class="col-md-4">
-        <label>Q2 *</label>
-        <select class="form-control" name="a2_question" required
-        data-validate="required">
-            <option value="">Select</option>
-            <option value="fav_coffee">Favorite coffee?</option>
-        </select>
-        <input type="text" class="form-control mt-1" name="a2_answer" required
-        data-validate="required|a2_answer">
-        <div class="error invalid-feedback"></div>
-    </div>
-    <div class="col-md-4">
-        <label>Q3 *</label>
-        <select class="form-control" name="a3_question" required
-        data-validate="required">
-            <option value="">Select</option>
-            <option value="ideal_coffee">Ideal cup?</option>
-        </select>
-
-        <input type="text" class="form-control mt-1" name="a3_answer" required
-        data-validate="required|a3_answer">
-        <div class="error invalid-feedback">error</div>
+        <footer>
+            <p>&copy; 2025 Brewstack Coffee — All rights reserved.</p>
+        </footer>
 
     </div>
-</div>
 
-
-    <button type="submit" class="btn-register mt-3">Register</button>
-</form>
-</div>
-</div>
-
-<footer>
-    <p>&copy; 2025 Brewstack Coffee — All rights reserved.</p>
-</footer>
-
-</div>
-
-<!--<script src="../js/personal_information_register.js"></script> 
+    <!--<script src="../js/personal_information_register.js"></script> 
 <script src="../js/address_access_register.js"></script>
 <script src="../js/password_register.js"></script>
 <script src="../js/security_question_register.js"></script>
 -->
 
-<script type="module" src="../js/register.js"></script>
+    <script type="module" src="../js/register.js"></script>
 
 </body>
+
 </html>

@@ -50,19 +50,228 @@
     </style>
 </head>
 <body>
-<div class="container">
-      <div class="col-md-3">
-        <label>Re-enter *</label>
-        <input type="password" class="form-control is-invalid position-relative" name="repassword" required
-            data-validate="required|repassword">
-        <div class="error">test invalid input</div>
+<s="container">
+    <form id="register-form" action="register.php" method="POST" novalidate></form>
+                    <!-- PERSONAL INFO -->
+                    <h3>Personal Information</h3>
+                    <div class="row g-2">
 
-        <!-- Password visibility toggle button -->
-        <button type="button" id="togglePasswordConfirmation" class="toggle-password-btn"
-                data-type="repassword" tabindex="-1" aria-label="Toggle password visibility">
-            <i class="bi bi-eye"></i>
-        </button>
-    </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>ID No. *</label>
+                                <input type="text" class="form-control is-invalid" name="id_number" readonly
+                                    value="<?php echo $nextIdNumber; ?>" data-validate="required|id_number">
+                                <small class="error-message invalid-feedback">error</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>First Name *</label>
+                                <input type="text" class="form-control is-invalid" name="first_name" required
+                                    data-validate="required|first_name">
+                                <small class="error-message invalid-feedback">error</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Middle</label>
+                                <input type="text" class="form-control is-invalid" name="middle_name"
+                                    oninput="validateMiddleName(this)" data-validate="middle_name">
+                                <small class="error-message invalid-feedback">error</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Last *</label>
+                                <input type="text" class="form-control is-invalid" name="last_name" required
+                                    data-validate="required|last_name">
+                                <small class="error-message invalid-feedback">error</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Ext</label>
+                                <select class="form-control is-invalid" name="extension_name" data-validate="required">
+                                    <option value="">None</option>
+                                    <option value="Jr">Jr</option>
+                                    <option value="Sr">Sr</option>
+                                </select>
+                                <small class="error-message invalid-feedback">error</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Sex *</label>
+                                <select id="sex" class="form-control is-invalid" name="sex" required data-validate="required">
+                                    <option value="">Select</option>
+                                    <option>Male</option>
+                                    <option>Female</option>
+                                </select>
+                                <small class="error-message invalid-feedback">error</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Birthdate *</label>
+                                <input type="date" class="form-control is-invalid" name="birthdate" required
+                                    data-validate="required|birthdate">
+                                <small class="error-message invalid-feedback">error</small>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Age *</label>
+                                <input type="text" class="form-control is-invalid" name="age" readonly
+                                    data-validate="required|age">
+                                <small class="error-message invalid-feedback">error</small>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    <!-- ADDRESS -->
+                    <h3>Address</h3>
+                    <div class="row g-2">
+                        <div class="col-md-3">
+                            <label>Purok *</label>
+                            <input type="text" class="form-control is-invalid" name="purok" required
+                                data-validate="required|purok">
+                            <small class="error-message invalid-feedback">error</small>
+
+                        </div>
+                        <div class="col-md-3">
+                            <label>Barangay *</label>
+                            <input type="text" class="form-control is-invalid" name="barangay" required
+                                data-validate="required|barangay">
+                            <small class="error-message invalid-feedback">error</small>
+
+                        </div>
+                        <div class="col-md-3">
+                            <label>City *</label>
+                            <input type="text" class="form-control is-invalid" name="city" required
+                                data-validate="required|city">
+                            <small class="error-message invalid-feedback">error</small>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Province *</label>
+                            <input type="text" class="form-control is-invalid" name="province" required
+                                data-validate="required|province">
+                            <small class="error-message invalid-feedback">error</small>
+
+                        </div>
+                        <div class="col-md-3">
+                            <label>Country *</label>
+                            <input type="text" class="form-control is-invalid" name="country" required
+                                data-validate="required|country">
+                            <small class="error-message invalid-feedback">error</small>
+
+                        </div>
+                        <div class="col-md-3">
+                            <label>Zip *</label>
+                            <input type="text" class="form-control is-invalid" maxlength="4" name="zipcode" required
+                                data-validate="required|zipcode">
+                            <small class="error-message invalid-feedback">error</small>
+
+                        </div>
+                    </div>
+
+                    <!-- CREDENTIALS -->
+                    <h3>Credentials</h3>
+                    <div class="row g-2">
+                        <div class="col-md-3">
+                            <label>Email *</label>
+                            <input type="email" class="form-control is-invalid" name="email" required
+                                data-validate="required|email">
+                            <small class="error-message invalid-feedback">error</small>
+
+                        </div>
+                        <div class="col-md-3">
+                            <label>Username *</label>
+                            <input type="text" class="form-control is-invalid" name="username" required
+                                data-validate="required|username">
+                            <small class="error-message invalid-feedback">error</small>
+                        </div>
+                        <div class="col-md-3">
+                            <label>Password *</label>
+                            <input type="password" class="form-control is-invalid" name="password" required
+                                data-validate="required|password">
+                            <small class="error-message invalid-feedback">error</small>
+
+
+                            <button type="button" class="toggle-password-btn" data-type="password" tabindex="-1"
+                                aria-label="Toggle password visibility">
+                                <i class="bi bi-eye"></i>
+                            </button>
+
+                            <div class="password-strength-bar mt-2">
+                                <div class="strength-fill"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label>Re-enter *</label>
+                            <input type="password" class="form-control is-invalid" name="repassword" required
+                                data-validate="required|repassword">
+                            <small class="error-message invalid-feedback">error</small>
+
+
+                            <button type="button" class="toggle-password-btn" data-type="repassword" tabindex="-1"
+                                aria-label="Toggle password visibility">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- SECURITY -->
+                    <h3>Security Questions</h3>
+                    <div class="row g-2">
+                        <div class="col-md-4">
+                            <label>Q1 *</label>
+                            <select class="form-control is-invalid" name="a1_question" required data-validate="required">
+                                <option value="">Select</option>
+                                <option value="experience">Experience?</option>
+                                <option value="hot_iced">Hot or iced?</option>
+                            </select>
+                            <input type="text" class="form-control mt-1 is-invalid" name="a1_answer" required
+                                data-validate="required|a1_answer">
+                            <small class="error-message invalid-feedback">error</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Q2 *</label>
+                            <select class="form-control is-invalid" name="a2_question" required data-validate="required">
+                                <option value="">Select</option>
+                                <option value="fav_coffee">Favorite coffee?</option>
+                            </select>
+                            <input type="text" class="form-control mt-1 is-invalid" name="a2_answer" required
+                                data-validate="required|a2_answer">
+                            <small class="error-message invalid-feedback">error</small>
+                        </div>
+                        <div class="col-md-4">
+                            <label>Q3 *</label>
+                            <select class="form-control is-invalid" name="a3_question" required data-validate="required">
+                                <option value="">Select</option>
+                                <option value="ideal_coffee">Ideal cup?</option>
+                            </select>
+                            <input type="text" class="form-control mt-1 is-invalid" name="a3_answer" required
+                                data-validate="required|a3_answer">
+                            <small class="error-message invalid-feedback">error</small>
+
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn-register mt-3">Register</button>
+
+                </form>
+            </div>
 </div>
 
 <script>
