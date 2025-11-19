@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Step Registration</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div class="container">
+    <h2>Register Account</h2>
+
+    <!-- Progress bar -->
+    <div class="progressbar">
+      <div class="progress-step" data-step="1">1</div>
+      <div class="progress-step" data-step="2">2</div>
+      <div class="progress-step" data-step="3">3</div>
+    </div>
+
+    <!-- Registration Form -->
+    <form id="register-form">
+      <!-- Step 1 -->
+      <div class="form-step" data-step="1">
+        <div class="form-group">
+          <label for="first-name">First Name</label>
+          <input type="text" id="first-name" placeholder="John">
+          <small class="error-message"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="family-name">Last Name</label>
+          <input type="text" id="family-name" placeholder="Doe">
+          <small class="error-message"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="example@mail.com">
+          <small class="error-message"></small>
+        </div>
+
+        <div class="form-group password-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter password">
+          <span id="toggle-password"><i class="fas fa-eye"></i></span>
+          <div class="strength-bar" id="password-strength"></div>
+          <small class="error-message"></small>
+        </div>
+
+        <div class="form-group password-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input type="password" id="confirm-password" placeholder="Confirm password">
+          <span id="toggle-confirm-password"><i class="fas fa-eye"></i></span>
+          <small class="error-message"></small>
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="form-step" data-step="2">
+        <div class="form-group">
+          <label for="id-number">ID Number</label>
+          <input type="text" id="id-number" placeholder="1234-5678">
+          <small class="error-message"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="birthdate">Birthdate</label>
+          <input type="date" id="birthdate">
+          <small class="error-message"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="purok">Purok / Street</label>
+          <input type="text" id="purok" placeholder="Zone 1">
+          <small class="error-message"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text" id="city" placeholder="Your city">
+          <small class="error-message"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="zip-code">Zip Code</label>
+          <input type="text" id="zip-code" placeholder="1234">
+          <small class="error-message"></small>
+        </div>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="form-step" data-step="3">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Your username">
+          <small class="error-message"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="security-q1">Security Question 1</label>
+          <input type="text" id="security-q1" placeholder="Your answer">
+          <small class="error-message"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="security-q2">Security Question 2</label>
+          <input type="text" id="security-q2" placeholder="Your answer">
+          <small class="error-message"></small>
+        </div>
+
+        <div class="form-group">
+          <label for="security-q3">Security Question 3</label>
+          <input type="text" id="security-q3" placeholder="Your answer">
+          <small class="error-message"></small>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button type="button" id="prev-btn">Previous</button>
+        <button type="button" id="next-btn">Next</button>
+        <button type="submit" id="submit-btn">Submit</button>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
