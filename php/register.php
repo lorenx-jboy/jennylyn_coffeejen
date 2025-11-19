@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $stmt = $pdo->prepare("
             INSERT INTO users
-            (id_number, first_name, middle_name, last_name, extension_name, sex, birthdate, age, purok, barangay, city, province, country, zip_code, email, username, password, a1_question, a1_answer, a2_question, a2_answer, a3_question, a3_answer)
+            (id_number, first_name, middle_name, last_name, extension_name, sex, birthdate, age, purok, barangay, city, province, country, zip_code, email, username, password_hash, a1_question, a1_answer, a2_question, a2_answer, a3_question, a3_answer)
             VALUES
             (:id_number, :first_name, :middle_name, :last_name, :extension_name, :sex, :birthdate, :age, :purok, :barangay, :city, :province, :country, :zip_code, :email, :username, :password, :a1_question, :a1_answer, :a2_question, :a2_answer, :a3_question, :a3_answer)
         ");
@@ -119,10 +119,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         $_SESSION['success'] = "Registration successful! You can now login.";
+        echo json_encode(['success' => true, 'message' => "Registration successful! You can now login."]);
         header('Location: login.php');
         exit;
     } catch (PDOException $e) {
         $errorMsg = "Registration failed: " . $e->getMessage();
+        error_log($errorMsg);
     }
 }
 ?>
@@ -134,6 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <title>Brewstack Coffee - Register</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 <style>
 body {
@@ -178,7 +181,7 @@ footer {
     max-width: 1200px;
     padding: 20px 40px;
     border-radius: 40px;
-    overflow: hidden;
+    /* overflow: hidden; */
     max-height: 100vh;
     
 }
@@ -220,6 +223,14 @@ h3 {
     --bs-gutter-y: 5px;
     --bs-gutter-x: 8px;
 }
+
+
+.error {
+    background-color: #ffcdcdff;
+    color: brown;
+    padding: 0 10px;
+    z-index: 10;
+}
 </style>
 </head>
 <body>
@@ -241,26 +252,33 @@ h3 {
 <div class="register-container">
 <div class="register-box">
 <h2>Registration Form</h2>
-<form action="register.php" method="POST">
+<form id="register-form" action="register.php" method="POST" novalidate>
 
     <!-- PERSONAL INFO -->
-    <h3>Personal Information</h3>
+    <!--<h3>Personal Information</h3>
     <div class="row g-2">
         <div class="col-md-3">
             <label>ID No. *</label>
-            <input type="text" class="form-control" name="id_number" readonly value="<?php echo $nextIdNumber; ?>">
+            <input type="text" class="form-control" name="id_number" readonly value="<?php echo $nextIdNumber; ?>"
+            data-validate="id_number">
+            <div class="error"></div>
         </div>
         <div class="col-md-3">
             <label>First Name *</label>
-            <input type="text" class="form-control" name="first_name" required>
+            <input type="text" class="form-control" name="first_name" required 
+            data-validate="first_name">
+            <div class="error"></div>
         </div>
         <div class="col-md-3">
             <label>Middle</label>
             <input type="text" class="form-control" name="middle_name">
+            <div class="error"></div>
         </div>
         <div class="col-md-3">
             <label>Last *</label>
-            <input type="text" class="form-control" name="last_name" required>
+            <input type="text" class="form-control" name="last_name" required
+            data-validate="last_name">
+            <div class="error"></div>
         </div>
         <div class="col-md-3">
             <label>Ext</label>
@@ -272,7 +290,7 @@ h3 {
         </div>
         <div class="col-md-3">
             <label>Sex *</label>
-            <select class="form-control" name="sex" required>
+            <select id="sex" class="form-control" name="sex" required>
                 <option value="">Select</option>
                 <option>Male</option>
                 <option>Female</option>
@@ -281,43 +299,51 @@ h3 {
         <div class="col-md-3">
             <label>Birthdate *</label>
             <input type="date" class="form-control" name="birthdate" required>
+            <div class="error"></div>
         </div>
         <div class="col-md-3">
             <label>Age *</label>
             <input type="text" class="form-control" name="age" readonly>
+            <div class="error"></div>
         </div>
     </div>
 
-    <!-- ADDRESS -->
+    <!-- ADDRESS --
     <h3>Address</h3>
     <div class="row g-2">
         <div class="col-md-3">
             <label>Purok *</label>
             <input type="text" class="form-control" name="purok" required>
+            <div class="error"></div>
         </div>
         <div class="col-md-3">
             <label>Barangay *</label>
             <input type="text" class="form-control" name="barangay" required>
+            <div class="error"></div>
         </div>
         <div class="col-md-3">
             <label>City *</label>
             <input type="text" class="form-control" name="city" required>
+            <div class="error"></div>
         </div>
         <div class="col-md-3">
             <label>Province *</label>
             <input type="text" class="form-control" name="province" required>
+            <div class="error"></div>
         </div>
         <div class="col-md-3">
             <label>Country *</label>
             <input type="text" class="form-control" name="country" required>
+            <div class="error"></div>
         </div>
         <div class="col-md-3">
             <label>Zip *</label>
             <input type="text" class="form-control" maxlength="4" name="zip_code" required>
+            <div class="error"></div>
         </div>
     </div>
 
-    <!-- CREDENTIALS -->
+    <!-- CREDENTIALS --
     <h3>Credentials</h3>
     <div class="row g-2">
         <div class="col-md-3">
@@ -334,11 +360,11 @@ h3 {
         </div>
         <div class="col-md-3">
             <label>Re-enter *</label>
-            <input type="password" class="form-control" name="re_password" required>
+            <input type="password" class="form-control" name="repassword" required>
         </div>
     </div>
 
-    <!-- SECURITY -->
+    <!-- SECURITY --
     <h3>Security Questions</h3>
     <div class="row g-2">
         <div class="col-md-4">
@@ -366,7 +392,208 @@ h3 {
             </select>
             <input type="text" class="form-control mt-1" name="a3_answer" required>
         </div>
+    </div> -->
+
+
+    <!-- PERSONAL INFO -->
+<h3>Personal Information</h3>
+<div class="row g-2">
+    <div class="col-md-3">
+        <label>ID No. *</label>
+        <input type="text" class="form-control" name="id_number" readonly value="<?php echo $nextIdNumber; ?>"
+        data-validate="required|id_number">
+        <div class="error"></div>
     </div>
+    <div class="col-md-3">
+        <label>First Name *</label>
+        <input type="text" class="form-control" name="first_name" required 
+        data-validate="required|first_name">
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>Middle</label>
+        <input type="text" class="form-control" name="middle_name" 
+        data-validate="middle_name">
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>Last *</label>
+        <input type="text" class="form-control" name="last_name" required
+        data-validate="required|last_name">
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>Ext</label>
+        <select class="form-control" name="extension_name" data-validate="required">
+            <option value="">None</option>
+            <option value="Jr">Jr</option>
+            <option value="Sr">Sr</option>
+        </select>
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>Sex *</label>
+        <select id="sex" class="form-control" name="sex" required data-validate="required">
+            <option value="">Select</option>
+            <option>Male</option>
+            <option>Female</option>
+        </select>
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>Birthdate *</label>
+        <input type="date" class="form-control" name="birthdate" required
+        data-validate="required|birthdate">
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>Age *</label>
+        <input type="text" class="form-control" name="age" readonly
+        data-validate="required|age">
+        <div class="error"></div>
+    </div>
+</div>
+
+<!-- ADDRESS -->
+<h3>Address</h3>
+<div class="row g-2">
+    <div class="col-md-3">
+        <label>Purok *</label>
+        <input type="text" class="form-control" name="purok" required
+        data-validate="required|purok">
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>Barangay *</label>
+        <input type="text" class="form-control" name="barangay" required
+        data-validate="required|barangay">
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>City *</label>
+        <input type="text" class="form-control" name="city" required
+        data-validate="required|city">
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>Province *</label>
+        <input type="text" class="form-control" name="province" required
+        data-validate="required|province">
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>Country *</label>
+        <input type="text" class="form-control" name="country" required
+        data-validate="required|country">
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>Zip *</label>
+        <input type="text" class="form-control" maxlength="4" name="zipcode" required
+        data-validate="required|zipcode">
+        <div class="error"></div>
+    </div>
+</div>
+
+<!-- CREDENTIALS -->
+<h3>Credentials</h3>
+<div class="row g-2">
+    <div class="col-md-3">
+        <label>Email *</label>
+        <input type="email" class="form-control" name="email" required
+        data-validate="required|email">
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>Username *</label>
+        <input type="text" class="form-control" name="username" required
+        data-validate="required|username">
+        <div class="error"></div>
+    </div>
+    <div class="col-md-3">
+        <label>Password *</label>
+        <input type="password" class="form-control" name="password" required
+        data-validate="required|password">
+        <div class="error"></div>
+
+        <button type="button" class="toggle-password-btn"
+            data-type="password" tabindex="-1" aria-label="Toggle password visibility">
+            <i class="bi bi-eye"></i>
+        </button>
+
+        <div class="password-strength-bar mt-2">
+            <div class="strength-fill"></div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <label>Re-enter *</label>
+        <input type="password" class="form-control" name="repassword" required
+        data-validate="required|repassword">
+        <div class="error"></div>
+
+        <button type="button" class="toggle-password-btn"
+            data-type="repassword" tabindex="-1" aria-label="Toggle password visibility">
+            <i class="bi bi-eye"></i>
+        </button>
+    </div>
+
+    <div class="col-md-3 position-relative">
+        <label>Re-enter *</label>
+        <input type="password" class="form-control" name="repassword" required
+            data-validate="required|repassword">
+        <div class="error"></div>
+
+        <!-- Password visibility toggle button -->
+        <button type="button" class="toggle-password-btn"
+                data-type="repassword" tabindex="-1" aria-label="Toggle password visibility">
+            <i class="bi bi-eye"></i>
+        </button>
+    </div>
+
+</div>
+
+<!-- SECURITY -->
+<h3>Security Questions</h3>
+<div class="row g-2">
+    <div class="col-md-4">
+        <label>Q1 *</label>
+        <select class="form-control" name="a1_question" required
+        data-validate="required">
+            <option value="">Select</option>
+            <option value="experience">Experience?</option>
+            <option value="hot_iced">Hot or iced?</option>
+        </select>
+        <input type="text" class="form-control mt-1" name="a1_answer" required
+        data-validate="required|a1_answer">
+        <div class="error invalid-feedback"></div>
+    </div>
+    <div class="col-md-4">
+        <label>Q2 *</label>
+        <select class="form-control" name="a2_question" required
+        data-validate="required">
+            <option value="">Select</option>
+            <option value="fav_coffee">Favorite coffee?</option>
+        </select>
+        <input type="text" class="form-control mt-1" name="a2_answer" required
+        data-validate="required|a2_answer">
+        <div class="error invalid-feedback"></div>
+    </div>
+    <div class="col-md-4">
+        <label>Q3 *</label>
+        <select class="form-control" name="a3_question" required
+        data-validate="required">
+            <option value="">Select</option>
+            <option value="ideal_coffee">Ideal cup?</option>
+        </select>
+
+        <input type="text" class="form-control mt-1" name="a3_answer" required
+        data-validate="required|a3_answer">
+        <div class="error invalid-feedback">error</div>
+
+    </div>
+</div>
+
 
     <button type="submit" class="btn-register mt-3">Register</button>
 </form>
@@ -378,6 +605,14 @@ h3 {
 </footer>
 
 </div>
+
+<!--<script src="../js/personal_information_register.js"></script> 
+<script src="../js/address_access_register.js"></script>
+<script src="../js/password_register.js"></script>
+<script src="../js/security_question_register.js"></script>
+-->
+
+<script type="module" src="../js/register.js"></script>
 
 </body>
 </html>

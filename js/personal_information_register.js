@@ -1,4 +1,79 @@
 document.addEventListener('contextmenu', e => e.preventDefault());
+
+function validateStreetField() {
+  const fieldName = "street";
+  const input = document.getElementsByName(fieldName)[0];
+  if (!input) return true;
+
+  let value = input.value;
+
+  // ❗ Leading space check
+  if (/^\s/.test(value)) {
+    showStreetError(input, `❌ Street/Purok: Cannot start with a space.`, 'leading_space');
+    return false;
+  }
+
+  // Replace triple spaces to double
+  value = value.replace(/\s{3,}/g, "  ");
+
+  // ❗ Empty check
+  if (!value || value.trim() === "") {
+    showStreetError(input, `❌ Street/Purok: This field is required.`, 'empty');
+    return false;
+  }
+
+  // 1️⃣ Special characters except letters, numbers, space, dot, dash, comma
+  if (/[^A-Za-z0-9\s.,-]/.test(value)) {
+    showStreetError(
+      input,
+      `❌ Street/Purok: Only letters, numbers, space, dot (.), dash (-), and comma (,) are allowed.`,
+      'invalid_char'
+    );
+    return false;
+  }
+
+  const trimmed = value.trim();
+
+  // 2️⃣ Cannot start with lowercase letter (numbers okay)
+  if (/^[a-z]/.test(trimmed)) {
+    showStreetError(input, `❌ Street/Purok: Cannot start with lowercase letter.`, 'lowercase_start');
+    return false;
+  }
+
+  // 3️⃣ Double or triple spaces
+  if (/\s{2,}/.test(value)) {
+    showStreetError(input, `❌ Street/Purok: No double/triple spaces allowed.`, 'double_space');
+    return false;
+  }
+
+  // 4️⃣ Two consecutive capital letters
+  if (/[A-Z]{2,}/.test(value)) {
+    showStreetError(input, `❌ Street/Purok: No two consecutive capital letters allowed.`, 'consecutive_caps');
+    return false;
+  }
+
+  // 5️⃣ Three repeated letters
+  if (/(.)\1\1/.test(value)) {
+    showStreetError(input, `❌ Street/Purok: No triple repeated letters allowed.`, 'triple_repeat');
+    return false;
+  }
+
+  // 6️⃣ Length check
+  const trimmedLen = trimmed.length;
+  if (trimmedLen < 2) {
+    showStreetError(input, `❌ Street/Purok: Must be at least 2 characters.`, 'min_length');
+    return false;
+  }
+  if (trimmedLen > 50) {
+    showStreetError(input, `❌ Street/Purok: Too long.`, 'max_length');
+    return false;
+  }
+
+  // ✅ All good
+  clearStreetError(input);
+  return true;
+}
+
 // ==========================PERSONAL INFORAMATION=========================================
 // register.js - per-field validation functions + focus on error (single prioritized error)
 
@@ -172,28 +247,28 @@ function validateExtensionField() {
 
 // =============================SEX==================================================
 
-function validateSex() {
-  const inputName = "sex";
-  const select = document.getElementsByName(inputName)[0];
-  if (!select) return true;
+// function validateSex() {
+//   const inputName = "sex";
+//   const select = document.getElementsByName(inputName)[0];
+//   if (!select) return true;
 
-  // Create a "touched" flag to avoid showing error on load
-  if (!select.dataset.touched) {
-    select.addEventListener("change", () => {
-      select.dataset.touched = "true";
-      validateSex(); // recheck once touched
-    });
-    return true;
-  }
+//   // Create a "touched" flag to avoid showing error on load
+//   if (!select.dataset.touched) {
+//     select.addEventListener("change", () => {
+//       select.dataset.touched = "true";
+//       validateSex(); // recheck once touched
+//     });
+//     return true;
+//   }
 
-  if (!select.value || select.value.trim() === "") {
-    showSingleError(inputName, select, "❌ Sex: Please select your sex.");
-    return false;
-  }
+//   if (!select.value || select.value.trim() === "") {
+//     showSingleError(inputName, select, "❌ Sex: Please select your sex.");
+//     return false;
+//   }
 
-  clearError(inputName, select);
-  return true;
-}
+//   clearError(inputName, select);
+//   return true;
+// }
 
 
 // BIRTHDATE & AGE validator (auto-calc, min 18)
@@ -313,14 +388,18 @@ document.addEventListener("DOMContentLoaded", () => {
         { ok: validateBirthdateField(), name: "birthdate" }
       ];
 
+      const info = JSON.parse(localStorage.getItem("personal_info"));
       const firstFailed = checks.find(c => !c.ok);
-      if (firstFailed) {
+      if (firstFailed || !info) {
         e.preventDefault();
         // focus already done by validator, but ensure focus
         const el = document.getElementsByName(firstFailed.name)[0];
         if (el) setTimeout(() => el.focus(), 10);
         return false;
       }
+
+      localStorage.setItem("personal_info", JSON.stringify({valid: true}));
+
       // otherwise allow submit
     });
   }

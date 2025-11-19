@@ -33,7 +33,7 @@ if (strlen($new) < 6) {
 
 try {
     // Ensure table exists (safe)
-    ensureUsersTableExists($pdo);
+    // ensureUsersTableExists($pdo);
 
     $stmt = $pdo->prepare('SELECT sec_q1, sec_q2, sec_q3 FROM users WHERE id_number = ? LIMIT 1');
     $stmt->execute([$idNo]);
