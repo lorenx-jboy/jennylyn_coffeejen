@@ -1,14 +1,174 @@
-    /* body {
-        min-height: 100vh;
+/* body, html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: url("../image/coffee.png") no-repeat center center/cover;
+    color: #f8f3e9;
+    /* overflow: hidden; *
+} */
+
+    body {
         background-image: url("../image/coffee.png");
         background-color: rgba(0, 0, 0, 0.25);
-
+        /* darkness level */
         background-blend-mode: darken;
-        /* or try multiply *
+        /* or try multiply */
         background-size: cover;
         background-position: center;
-    } */
- 
+        margin: 0;
+        padding: 0;
+        /* overflow: hidden; */
+    }
+
+
+/* Header */
+/* header {
+    background: #1a1412b5;
+    padding: 10px 20px;
+} */
+/* 
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f8f3e9;
+    text-decoration: none;
+}
+
+.nav-links a {
+    color: #f8f3e9;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+} */
+
+/* Main Layout */
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100% - 100px);
+    padding: 20px;
+}
+
+/* Form Container */
+.form-container {
+    background: rgba(31, 24, 22, 0.65);
+    padding: 40px 35px;                /* More space */
+    border-radius: 25px;
+    width: 100%;
+    max-width: 450px;                  /* Wider */
+    min-height: 450px;                 /* Taller */
+    box-shadow: 0 0 18px rgba(0,0,0,0.5);
+}
+
+.form-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+/* Input Styling */
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    height: 34px;
+    background-color: #fff;
+}
+
+.password-container {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #555;
+}
+
+/* Buttons */
+.btn-primary {
+    width: 100%;
+    padding: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: #4e342e;
+    border: none;
+    border-radius: 6px;
+    color: #c09d74;
+}
+
+.btn-primary:hover {
+    background-color: #3e2721;
+    color: #f8f3e9;
+}
+
+
+/* Messages */
+/* .server-message {
+    background: #8b0000;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* Footer *
+.form-footer {
+    font-size: 13px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.form-footer a {
+    color: #c09d74;
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+
+/* Disabled states *
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+input:invalid {
+    border-color: red;
+}
+
+.nav-links a.disabled,
+.form-footer a.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+} */
+
+
     footer {
         text-align: center;
         font-size: 14px;
@@ -44,7 +204,7 @@
 
     }
 
-    /* h2 {
+    h2 {
         text-align: center;
         margin-bottom: 10px;
         font-weight: 1000;
@@ -57,7 +217,7 @@
         border-bottom: 1px solid #c09d74;
         padding-bottom: 3px;
         margin-bottom: 8px;
-    } */
+    }
 
     .form-control,
     select {

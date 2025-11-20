@@ -140,30 +140,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/register.css">
 
+    <link rel="stylesheet" href="../css/style.css">
+
 </head>
-
 <body>
-
-    <div class="page-wrapper">
-
-        <header class="d-flex justify-content-between align-items-center">
-            <h4 class="m-0">Brewstack Coffee</h4>
-
-            <?php if (!empty($_SESSION['username'])): ?>
-            <form action="logout.php" method="post">
-                <button type="submit" class="btn btn-sm btn-secondary">Logout</button>
-            </form>
-            <?php else: ?>
-            <a href="login.php" class="btn btn-sm btn-warning">Login</a>
-            <?php endif; ?>
-        </header>
+    <div class="page-wrapper">        
+    
+        <!-- header -->
+        <?php include '../includes/header.php' ?>
 
         <div class="register-container ">
             <div class="register-box ">
-                <h2 class="text-white">Registration Form</h2>
+                <h2 class="text-white text-center">Registration Form</h2>
                 <form id="register-form" action="" method="post">
                     <!-- PERSONAL INFO -->
-                    <h3 class="text-light">Personal Information</h3>
+                    <h4 class="text-light">Personal Information</h4>
                     <div class="row g-2">
 
                         <div class="col-md-3">
@@ -251,7 +242,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
                     <!-- ADDRESS -->
-                    <h3 class="text-light">Address</h3>
+                    <h4 class="text-light">Address</h4>
                     <div class="row g-2">
                         <div class="col-md-3 text-light">
                             <label>Purok <span class="span">*</span></label>
@@ -298,7 +289,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <!-- CREDENTIALS -->
-                    <h3 class="text-light">Credentials</h3>
+                    <h4 class="text-light">Credentials</h4>
                     <div class="row g-2">
                         <div class="col-md-3 text-light">
                             <div class="form-group text-light"></div>
@@ -351,11 +342,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <!-- SECURITY -->
-                    <h3 class="text-light">Security Questions</h3>
+                    <h4 class="text-light">Security Questions</h4>
                     <div class="row">
                         <!-- Q1 -->
                         <div class="col-md-4 ">
-                            <select id="a1_question" class="form-control" name="a1_question" required>
+                            <select id="a1_question" class="form-control" name="a1_question" required
+                             data-validate="required|a1_question">
                                 <option value="" disabled selected hidden>Select Question 1</option>
                                 <option value="teacher">Who is your favorite teacher in high school?</option>
                                 <option value="pet">What is the name of your favorite pet?</option>
@@ -363,12 +355,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <option value="first_car">What was the make or model of your first car?</option>
                                 <option value="childhood_game">What was your favorite game as a child?</option>
                                 <option value="favorite_food">What is your favorite food?</option>
-
                             </select>
 
                             <div class="position-relative mt-1">
                                 <input type="password" id="a1_answer" name="a1_answer" class="form-control" required
-                                    placeholder="Enter your answer">
+                                    placeholder="Enter your answer"  data-validate="required|a1_answer">
                                 <button type="button"
                                     class="toggle-password-btn position-absolute   translate-middle-y bg-transparent border-0"
                                     data-type="a1_answer" aria-label="Toggle password visibility">
@@ -380,7 +371,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Q2 -->
                         <div class="col-md-4 ">
-                            <select id="a2_question" class="form-control " name="a2_question" required>
+                            <select id="a2_question" class="form-control " name="a2_question" required data-validate="required|a2_question">
                                 <option value="" disabled selected hidden>Select Question 2</option>
                                 <option value="dream_job">What was your dream job when you were a kid?</option>
                                 <option value="favorite_movie">What is your all-time favorite movie?</option>
@@ -394,7 +385,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <div class="position-relative mt-1">
                                 <input type="password" id="a2_answer" name="a2_answer" class="form-control" required
-                                    placeholder="Enter your answer">
+                                    placeholder="Enter your answer"  data-validate="required|a2_answer">
                                 <button type="button"
                                     class="toggle-password-btn position-absolute  translate-middle-y bg-transparent border-0"
                                     data-type="a2_answer" aria-label="Toggle password visibility">
@@ -406,7 +397,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Q3 -->
                         <div class="col-md-4">
-                            <select id="a3_question" class="form-control " name="a3_question" required>
+                            <select id="a3_question" class="form-control " name="a3_question" required data-validate="required|a3_question">
                                 <option value="" disabled selected hidden>Select Question 3</option>
                                 <option value="first_job">What was your first part-time or summer job?</option>
                                 <option value="favorite_book">Which book has influenced you the most?</option>
@@ -421,7 +412,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <div class="position-relative mt-1">
                                 <input type="password" id="a3_answer" name="a3_answer" class="form-control" required
-                                    placeholder="Enter your answer">
+                                    placeholder="Enter your answer" data-validate="required|a3_answer">
                                 <button type="button"
                                     class="toggle-password-btn position-absolute  translate-middle-y bg-transparent border-0"
                                     data-type="a3_answer" aria-label="Toggle password visibility">

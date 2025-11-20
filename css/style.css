@@ -1,0 +1,41 @@
+@import url('/css/header.css');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background-image: url("../image/coffee.png");
+    background-color: rgba(0, 0, 0, 0.25);
+    /* darkness level */
+    background-blend-mode: darken;
+    /* or try multiply */
+    background-size: cover;
+    background-position: center;
+}
+
+
+/* header {
+    background: #1a1412b5;
+    padding: 10px 20px;
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f8f3e9;
+    text-decoration: none;
+}
+
+.nav-links a {
+    color: #f8f3e9;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+} */

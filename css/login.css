@@ -8,16 +8,21 @@ body, html {
 }
 
 /* Header */
-header {
+/* header {
     background: #1a1412b5;
     padding: 10px 20px;
-}
-
+} */
+/* 
 .nav-brand {
     font-size: 1.5rem;
     font-weight: bold;
     color: #f8f3e9;
     text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
 }
 
 .nav-links a {
@@ -28,7 +33,7 @@ header {
 
 .nav-links a:hover {
     text-decoration: underline;
-}
+} */
 
 /* Main Layout */
 main {
@@ -147,10 +152,6 @@ footer {
 button:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-}
-
-input:invalid {
-    border-color: red;
 }
 
 .nav-links a.disabled,

@@ -126,16 +126,8 @@ footer {
 </head>
 <body>
 
-<header>
-    <a href="dashboard.php" class="nav-brand">Brewstack Coffee</a>
-
-    <div>
-        Welcome, <?= htmlspecialchars($_SESSION['username']) ?>
-        <form method="post" action="logout.php" style="display:inline;">
-            <button class="btn btn-warning btn-sm ms-2">Logout</button>
-        </form>
-    </div>
-</header>
+<!-- header -->
+<?php include '../includes/header.php' ?>
 
 <div class="dashboard-wrapper">
 

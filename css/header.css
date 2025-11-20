@@ -1,0 +1,33 @@
+
+header {
+    background: #1a1412b5;
+    backdrop-filter: blur(4px);
+    padding: 5px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    width: 100%;
+    z-index: 10;
+}
+
+.primary {
+    min-width: 80px;
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #f8f3e9;
+    text-decoration: none;
+}
+
+.nav-links a {
+    color: #f8f3e9;
+    margin-left: 15px;
+    text-decoration: none;
+}
+
+.nav-links a:hover {
+    text-decoration: underline;
+}
