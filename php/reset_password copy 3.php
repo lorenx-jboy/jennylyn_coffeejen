@@ -142,7 +142,6 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                     <!-- Left Column: Authentication Questions Only -->
                     <div class="col-md-6">
                         <label class="form-label">Authentication Questions</label>
-                        
                         <!-- Question 1 -->
                         <div class="mb-2 position-relative">
                             <select class="form-select" id="authQuestion1Select" name="auth_question_1" required>
@@ -219,96 +218,6 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 
     <script>
-        // localStorage.clear();
-
-// Key name in localStorage
-const RESET_STATE_KEY = "passwordResetState";
-
-function getResetState() {
-    return JSON.parse(localStorage.getItem(RESET_STATE_KEY)) || {
-        validId: false,
-        validAuth: false,
-        passwordResetting: false
-    };
-}
-
-// Save/update state
-function setResetState(patch) {
-    const current = getResetState();
-    const updated = { ...current, ...patch };
-    localStorage.setItem(RESET_STATE_KEY, JSON.stringify(updated));
-}
-
-// Clear state entirely (e.g., when process completed)
-function clearResetState() {
-    localStorage.removeItem(RESET_STATE_KEY);
-}
-
-const STORAGE_KEY = "passwordResetData";
-
-// Save form data to localStorage
-function saveFormData() {
-    const form = document.getElementById("password-reset-form");
-    const formData = new FormData(form);
-    const stored = {};
-
-    formData.forEach((value, key) => {
-        stored[key] = value;
-    });
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
-}
-
-// Load saved data on page load
-function loadFormData() {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) return;
-
-    const data = JSON.parse(saved);
-
-    for (const key in data) {
-        const field = document.querySelector(`[name="${key}"]`);
-        if (field) field.value = data[key];
-    }
-}
-
-// Clear storage on successful form submission
-function clearFormData() {
-    localStorage.removeItem(STORAGE_KEY);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("password-reset-form");
-
-    loadFormData();
-
-    // Save on input change
-    form.addEventListener("input", saveFormData);
-
-    // Save on dropdown change
-    form.addEventListener("change", saveFormData);
-
-    // When submitted, clear saved data
-    form.addEventListener("submit", clearFormData);
-});
-       
-
-        document.querySelectorAll(".toggle-password-btn").forEach(btn => {
-            btn.addEventListener("click", () => {
-                // Find the closest input associated with this toggle button
-                const input = btn.closest(".input-group").querySelector("input");
-                const icon = btn.querySelector("i");
-
-                if (input.type === "password") {
-                    input.type = "text";
-                    icon.classList.replace("bi-eye", "bi-eye-slash");
-                } else {
-                    input.type = "password";
-                    icon.classList.replace("bi-eye-slash", "bi-eye");
-                }
-            });
-        });
-        
         // Enable Submit Button when all answers are filled in
         document.getElementById('password-reset-form').addEventListener('input', function() {
             let isValid = true;
@@ -334,10 +243,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             
         const urls = {
-            checkUserId: "/api/check_user_id.php",
+            checkUserId: "php/check_user_id.php",
 
         }
-        
+
         async function checkUserId(user_id) {
             try {
                 const response = await fetch(urls.checkUserId, {
@@ -345,19 +254,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     headers: {
                         'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({ user_id })
+                    body: JSON.stringify({user_id: user_id})
                 });
-
                 const data = await response.json();
                 console.table(data);
-
-                // Example result expected: { valid: true/false }
-                if (data.valid) {
-                    setResetState({ validId: true });
-                } else {
-                    setResetState({ validId: false });
-                }
-
                 return data;
             } catch (error) {
                 console.error('Error:', error);
@@ -365,42 +265,9 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
 
-        document.addEventListener("DOMContentLoaded", () => {
-            const state = getResetState();
-
-            console.log("Loaded reset state:", state);
-
-            if (state.validId) {
-                // e.g., keep fields visible, skip ID validation step
-            }
-
-            if (state.validAuth) {
-                // enable password reset fields
-            }
-
-            if (state.passwordResetting) {
-                // restore progress UI
-            }
-        });
 
 
 
-        const userIdInput = document.getElementById("user_id");
-
-        userIdInput.addEventListener("input", function () {
-            // Remove all non-digit characters
-            let digits = this.value.replace(/\D/g, "");
-
-            // Limit to max 8 digits (4 + 4)
-            digits = digits.substring(0, 8);
-
-            // Add dash after 4 digits if needed
-            if (digits.length > 4) {
-                this.value = digits.substring(0, 4) + "-" + digits.substring(4);
-            } else {
-                this.value = digits;
-            }
-        });
 
         
     </script>
