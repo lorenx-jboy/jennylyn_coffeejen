@@ -15,8 +15,7 @@ function updatePasswordStrength(strength) {
 
 export function bindValidation(form){
     form.querySelectorAll('[data-validate]').forEach(field => {
-        const errorEl = field.parentElement.querySelector('.error');
-
+        const errorEl = field.parentElement.querySelector('.error-message');
         field.addEventListener('input', () => {
             const rules = field.dataset.validate.split('|');
             let result = { valid: true, message: '' };

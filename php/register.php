@@ -141,11 +141,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <style>
     body {
-        background-image: url(../image/pngtree-coffee-shop-with-many-wooden-tables-and-chairs-picture-image_2611848.jpg.jpg);
-        color: #f8f3e9;
-        background-repeat: no-repeat;
-        background-position: center;
+        background-image: url("../image/image2.png");
+        background-color: rgba(0, 0, 0, 0.25); /* darkness level */
+        background-blend-mode: darken;  /* or try multiply */
         background-size: cover;
+        background-position: center;
         margin: 0;
         padding: 0;
     }
@@ -178,13 +178,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     .register-box {
-        background: #1f181699;
+        /* background: #522b2099; */
         width: 100%;
         max-width: 1200px;
         padding: 20px 40px;
-        border-radius: 40px;
+        border-radius: 14px;
         /* overflow: hidden; */
-        max-height: 100vh;
+        /* max-height: 100vh; */
 
     }
 
@@ -259,6 +259,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     .span {
         color: red;
     }
+
+    /* Remove default show password icon */
+    .form-control.is-valid,
+    .was-validated .form-control:valid {
+        background-image: none !important;
+        padding-right: .75rem !important; /* optional: remove extra space */
+    }
+
+    .toggle-password-btn {
+        top: 15px;
+        right: 6px;
+        transform: translateY(-50%);
+    }
+
+    .toggle-password-btn:focus {
+        outline: 1px solid #c09d74;
+    }
+
+    input {
+        color: brown;
+    }
     </style>
 </head>
 
@@ -281,7 +302,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="register-container">
             <div class="register-box">
                 <h2>Registration Form</h2>
-                <form id="register-form" action="register.php" method="POST" novalidate></form>
+                <form id="register-form" action="" method="post">
                 <!-- PERSONAL INFO -->
                 <h3>Personal Information</h3>
                 <div class="row g-2">
@@ -289,36 +310,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>ID No. <span class="span">*</span></label>
-                            <input type="text" class="form-control is-invalid" name="id_number" readonly
+                            <input type="text" class="form-control " id="id_number" name="id_number" readonly
                                 value="<?php echo $nextIdNumber; ?>" data-validate="required|id_number">
-                            <small class="error-message invalid-feedback">error</small>
+                            <small class="error-message invalid-feedback"></small>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>First Name <span class="span">*</span></label>
-                            <input type="text" class="form-control is-invalid" name="first_name" required
+                            <input type="text" class="form-control " id="first_name" name="first_name" required
                                 data-validate="required|first_name">
-                            <small class="error-message invalid-feedback">error</small>
+                            <small class="error-message invalid-feedback"></small>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Middle <span class="span" style="font-style:italic;">(optional)</span></label>
-                            <input type="text" class="form-control is-invalid" name="middle_name"
-                                oninput="validateMiddleName(this)" data-validate="middle_name">
-                            <small class="error-message invalid-feedback">error</small>
+                            <input type="text" class="form-control " id="middle_name" name="middle_name"
+                                data-validate="middle_name">
+                            <small class="error-message invalid-feedback"></small>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label>LastName<span class="span">*</span></label>
-                            <input type="text" class="form-control is-invalid" name="last_name" required
+                            <label>LastName <span class="span">*</span></label>
+                            <input type="text" class="form-control " id="last_name" name="last_name" required
                                 data-validate="required|last_name">
-                            <small class="error-message invalid-feedback">error</small>
+                            <small class="error-message invalid-feedback"></small>
                         </div>
                     </div>
 
@@ -326,43 +347,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="form-group">
                             <label>Extenstion name <span class="span" ;
                                     style="font-style:italic;">(optional)</span></label>
-                            <select class="form-control is-invalid" name="extension_name" data-validate="required">
+                            <select id="extension_name" class="form-control " name="extension_name" data-validate="">
                                 <option value="">None</option>
                                 <option value="Jr">Jr</option>
                                 <option value="Sr">Sr</option>
                             </select>
-                            <small class="error-message invalid-feedback">error</small>
+                            <small class="error-message invalid-feedback"></small>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Sex <span class="span">*</span></label>
-                            <select id="sex" class="form-control is-invalid" name="sex" required
+                            <select id="sex" class="form-control " name="sex" required
                                 data-validate="required">
                                 <option value="">Select</option>
                                 <option>Male</option>
                                 <option>Female</option>
                             </select>
-                            <small class="error-message invalid-feedback">error</small>
+                            <small class="error-message invalid-feedback"></small>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Birthdate <span class="span">*</span></label>
-                            <input type="date" class="form-control is-invalid" name="birthdate" required
+                            <input type="date" class="form-control " id="birthdate" name="birthdate" required
                                 data-validate="required|birthdate">
-                            <small class="error-message invalid-feedback">error</small>
+                            <small class="error-message invalid-feedback"></small>
                         </div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Age <span class="span">*</span></label>
-                            <input type="text" class="form-control is-invalid" name="age" readonly
+                            <input type="text" class="form-control " id="age" name="age" readonly
                                 data-validate="required|age">
-                            <small class="error-message invalid-feedback">error</small>
+                            <small class="error-message invalid-feedback"></small>
                         </div>
                     </div>
 
@@ -374,43 +395,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="row g-2">
                     <div class="col-md-3">
                         <label>Purok <span class="span">*</span></label>
-                        <input type="text" class="form-control is-invalid" name="purok" required
+                        <input type="text" class="form-control " id="purok" name="purok" required
                             data-validate="required|purok">
-                        <small class="error-message invalid-feedback">error</small>
+                        <small class="error-message invalid-feedback"></small>
 
                     </div>
                     <div class="col-md-3">
                         <label>Barangay <span class="span">*</span></label>
-                        <input type="text" class="form-control is-invalid" name="barangay" required
+                        <input type="text" class="form-control " id="barangay" name="barangay" required
                             data-validate="required|barangay">
-                        <small class="error-message invalid-feedback">error</small>
+                        <small class="error-message invalid-feedback"></small>
 
                     </div>
                     <div class="col-md-3">
                         <label>City <span class="span">*</span></label>
-                        <input type="text" class="form-control is-invalid" name="city" required
+                        <input type="text" class="form-control " id="city" name="city" required
                             data-validate="required|city">
-                        <small class="error-message invalid-feedback">error</small>
+                        <small class="error-message invalid-feedback"></small>
                     </div>
                     <div class="col-md-3">
                         <label>Province <span class="span">*</span></label>
-                        <input type="text" class="form-control is-invalid" name="province" required
+                        <input type="text" class="form-control " id="province" name="province" required
                             data-validate="required|province">
-                        <small class="error-message invalid-feedback">error</small>
+                        <small class="error-message invalid-feedback"></small>
 
                     </div>
                     <div class="col-md-3">
                         <label>Country <span class="span">*</span></label>
-                        <input type="text" class="form-control is-invalid" name="country" required
+                        <input type="text" class="form-control " id="country" name="country" required
                             data-validate="required|country">
-                        <small class="error-message invalid-feedback">error</small>
+                        <small class="error-message invalid-feedback"></small>
 
                     </div>
                     <div class="col-md-3">
                         <label>Zip <span class="span">*</span></label>
-                        <input type="text" class="form-control is-invalid" maxlength="4" name="zipcode" required
+                        <input type="text" class="form-control " id="zipcode" maxlength="4" name="zipcode" required
                             data-validate="required|zipcode">
-                        <small class="error-message invalid-feedback">error</small>
+                        <small class="error-message invalid-feedback"></small>
 
                     </div>
                 </div>
@@ -420,30 +441,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="row g-2">
                     <div class="col-md-3">
                         <label>Email <span class="span">*</span></label>
-                        <input type="email" class="form-control is-invalid" name="email" required
+                        <input type="email" class="form-control " id="email" name="email" required
                             data-validate="required|email">
-                        <small class="error-message invalid-feedback">error</small>
+                        <small class="error-message invalid-feedback"></small>
 
                     </div>
                     <div class="col-md-3">
                         <label>Username <span class="span">*</span></label>
-                        <input type="text" class="form-control is-invalid" name="username" required
+                        <input type="text" class="form-control " id="username" name="username" required
                             data-validate="required|username">
-                        <small class="error-message invalid-feedback">error</small>
+                        <small class="error-message invalid-feedback"></small>
                     </div>
 
                     <div class="col-md-3">
                         <label>Password <span class="span">*</span></label>
                         <div class="position-relative">
-                            <input type="password" class="form-control" name="password" required
+                            <input type="password" class="form-control" id="password" name="password" required
                                 data-validate="required|password">
                             <button type="button"
-                                class="toggle-password-btn position-absolute top-50 end-0 translate-middle-y bg-transparent border-0 "
+                                class="toggle-password-btn position-absolute translate-middle-y bg-transparent border-0 "
                                 data-type="password" aria-label="Toggle password visibility">
                                 <i class="bi bi-eye"></i>
                             </button>
+                            <small class="error-message invalid-feedback"></small>
+
                         </div>
-                        <small class="error-message invalid-feedback">error</small>
 
                         <div class="password-strength-bar mt-2">
                             <div class="strength-fill"></div>
@@ -453,18 +475,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="col-md-3">
                         <label>Re-enter Password <span class="span">*</span></label>
                         <div class="position-relative">
-                            <input type="password" class="form-control" name="repassword" required
+                            <input type="password" class="form-control" id="repassword" name="repassword" required
                                 data-validate="required|repassword">
                             <button type="button"
-                                class="toggle-password-btn position-absolute top-50 end-0 translate-middle-y bg-transparent border-0"
+                                class="toggle-password-btn position-absolute translate-middle-y bg-transparent border-0"
                                 data-type="repassword" aria-label="Toggle password visibility">
                                 <i class="bi bi-eye"></i>
                             </button>
+                            <small class="error-message invalid-feedback"></small>  
                         </div>
-                        <small class="error-message invalid-feedback">error</small>
                     </div>
-
-
                 </div>
 
                 <!-- SECURITY -->
@@ -472,36 +492,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="row g-2">
                     <div class="col-md-4">
                         <label>Q1 <span class="span">*</span></label>
-                        <select class="form-control is-invalid" name="a1_question" required data-validate="required">
+                        <select id="a1_question" class="form-control " name="a1_question" required data-validate="required">
                             <option value="">Select</option>
                             <option value="teacher"> Who is your favorite teacher in high school? </option>
                             <option value="pet">What is the name of your favorite pet? </option>
                             <option value="best_friend">Who is your best friend in Elementary? </option>
 
                         </select>
-                        <input type="text" class="form-control mt-1 is-invalid" name="a1_answer" required
+                        <input type="password" class="form-control mt-1 " id="a1_answer" name="a1_answer" required
                             data-validate="required|a1_answer">
-                        <small class="error-message invalid-feedback">error</small>
+                        <small class="error-message invalid-feedback"></small>
                     </div>
                     <div class="col-md-4">
                         <label>Q2 <span class="span">*</span></label>
-                        <select class="form-control is-invalid" name="a2_question" required data-validate="required">
+                        <select id="a2_question" class="form-control " name="a2_question" required data-validate="required">
                             <option value="">Select</option>
                             <option value="fav_coffee">Favorite coffee?</option>
                         </select>
-                        <input type="text" class="form-control mt-1 is-invalid" name="a2_answer" required
+                        <input type="password" class="form-control mt-1 " name="a2_answer" required
                             data-validate="required|a2_answer">
-                        <small class="error-message invalid-feedback">error</small>
+                        <small class="error-message invalid-feedback"></small>
                     </div>
                     <div class="col-md-4">
                         <label>Q3 <span class="span">*</span></label>
-                        <select class="form-control is-invalid" name="a3_question" required data-validate="required">
+                        <select class="form-control" id="a3_question" name="a3_question" required data-validate="required">
                             <option value="">Select</option>
                             <option value="ideal_coffee">Ideal cup?</option>
                         </select>
-                        <input type="text" class="form-control mt-1 is-invalid" name="a3_answer" required
+                        <input type="password" class="form-control mt-1 " name="a3_answer" required
                             data-validate="required|a3_answer">
-                        <small class="error-message invalid-feedback">error</small>
+                        <small class="error-message invalid-feedback"></small>
 
                     </div>
                 </div>
@@ -528,7 +548,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 -->
 
     <script type="module" src="../js/register.js"></script>
-
 </body>
 
 </html>

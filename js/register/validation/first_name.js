@@ -1,5 +1,5 @@
-export const firstNameValidation = (field) => {
-    const value = field.value.trim();
+export const firstNameValidation = (value) => {
+    value = value.trim();
     const fieldLabel = "First name";
     let message = "";
 
@@ -36,8 +36,8 @@ export const firstNameValidation = (field) => {
     }
 
     // SHOW THE ERROR UNDER FIELD
-    const errorElement = field.parentElement.querySelector(".error-message");
-    errorElement.textContent = message;
+    // const errorElement = field.parentElement.querySelector(".error-message");
+    // errorElement.textContent = message;
 
     return { valid: message === "", message };
 };

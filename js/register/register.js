@@ -1,7 +1,11 @@
 import { loadFormState, saveFormState } from "./localStorage.js";
 import { bindValidation } from "./events.js";
 export default function initRegister(){
+
+    // localStorage.clear(); // clear local storage
+
     const form = document.getElementById("register-form");
+    form.noValidate = true;
     if (!form) return;
 
     bindValidation(form);
@@ -10,7 +14,7 @@ export default function initRegister(){
     form.addEventListener("input", () => saveFormState(form));
     form.addEventListener("change", () => saveFormState(form));
 
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         form.querySelectorAll("[data-validate]").forEach(field => field.dispatchEvent(new Event("input")));
@@ -23,8 +27,21 @@ export default function initRegister(){
             return; // stop form submission
         }
 
-        alert("submit form")
-      });
+        const data = new FormData(form);
+        const result = await submitRegister(data);
+        console.log(result);
+        if (result.success) {
+            window.location.href = "login.php";
+            localStorage.clear();
+        }
+    });
+
+    async function submitRegister(data){
+        const url = "/php/register_submit.php";
+        const res = await fetch(url, { method: "POST", body: data });
+        const json = await res.json();
+        return json;
+    }
 
 
     //Eye toggle

@@ -27,7 +27,7 @@ $totalUsers = count($users);
 
 body {
     font-family: Arial, sans-serif;
-    background: url("../image/pngtree-coffee-shop-with-many-wooden-tables-and-chairs-picture-image_2611848.jpg.jpg") no-repeat center center/cover;
+    background: url("../image/image2.png") no-repeat center center/cover;
     min-height: 100vh;
     margin: 0;
 }

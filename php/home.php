@@ -55,8 +55,8 @@ header {
 
 /* HERO SECTION */
 .hero-section {
-    background: url('../image/pngtree-coffee-shop-with-many-wooden-tables-and-chairs-picture-image_2611848.jpg.jpg') no-repeat center center/cover;
-    height: 100vh;
+    background: url("/image/image2.png") no-repeat center center/cover;
+    height: 100vh;  
     display: flex;
     align-items: center;
     justify-content: center;
