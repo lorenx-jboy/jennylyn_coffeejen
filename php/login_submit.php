@@ -64,5 +64,7 @@ if ($now < $_SESSION['lock_until']) {
             $errorMsg = "Database error: " . $e->getMessage();
         }
     }
+
+    
 }
 ?>

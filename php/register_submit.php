@@ -109,13 +109,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ':zip_code' => $zip_code,
             ':email' => $email,
             ':username' => $username,
-            ':password' => $password,
+            ':password' => password_hash($password, PASSWORD_DEFAULT),
             ':a1_question' => $a1_question,
-            ':a1_answer' => $a1_answer,
+            ':a1_answer' => password_hash($a1_answer, PASSWORD_DEFAULT),
             ':a2_question' => $a2_question,
-            ':a2_answer' => $a2_answer,
+            ':a2_answer' => password_hash($a2_answer, PASSWORD_DEFAULT),
             ':a3_question' => $a3_question,
-            ':a3_answer' => $a3_answer
+            ':a3_answer' => password_hash($a3_answer, PASSWORD_DEFAULT),
         ]);
 
         $_SESSION['success'] = "Registration successful! You can now login.";
