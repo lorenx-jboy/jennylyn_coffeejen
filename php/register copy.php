@@ -179,7 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="form-group text-light">
                                 <label class="">First Name <span class="span">*</span></label>
                                 <input type="text" class="form-control " id="first_name" name="first_name" required
-                                    data-validate="first_name">
+                                    data-validate="required|first_name">
                                 <small class="error-message invalid-feedback"></small>
                             </div>
                         </div>
@@ -198,7 +198,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="form-group text-light">
                                 <label>LastName <span class="span">*</span></label>
                                 <input type="text" class="form-control " id="last_name" name="last_name" required
-                                    data-validate="last_name">
+                                    data-validate="required|last_name">
                                 <small class="error-message invalid-feedback"></small>
                             </div>
                         </div>

@@ -29,6 +29,7 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
     <title>Brewstack Coffee - Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/login.css">
 </head>
 
@@ -46,9 +47,9 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
         <div class="form-container">
 
             <?php if ($remaining > 0): ?>
-                <div class="server-message">
-                    Too many failed attempts. Please wait <span id="countdown"><?= $remaining ?></span> second(s).
-                </div>
+            <div class="server-message">
+                Too many failed attempts. Please wait <span id="countdown"><?= $remaining ?></span> second(s).
+            </div>
             <?php endif; ?>
 
             <h2>Login</h2>
@@ -58,21 +59,24 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
             <?php endif; ?>
 
             <form id="login-form" action="/php/login_submit.php" method="POST" novalidate>
-                <div class="form-group">
+                <div class="form-group ">
                     <label for="login-username">Username <span class="required">*</span></label>
-                    <input type="text" id="login-username" name="username"
+                    <input type="text" id="login-username" name="username" class="is-invalid"
                         value="<?= htmlspecialchars($username ?? '') ?>" required pattern=".{3,}">
                     <div class="invalid-feedback">Username must be at least 3 characters.</div>
+                    <small class="error-message invalid-feedback"></small>
                 </div>
 
 
                 <div class="form-group">
                     <label for="login-password">Password <span class="required">*</span></label>
-                    <div class="password-container">
-                        <input type="password" id="login-password" name="password" required pattern=".{6,}">
-                        <div class="invalid-feedback">Password must be at least 6 characters.</div>
-                        <button type="button" class="toggle-password" id="toggle-login-password">
-                            <i class="fas fa-eye"></i>
+                    <div class="password-container is-invalid">
+                        <input type="password" id="login-password" name="password" required class="is-invalid"
+                            pattern=".{6,}">
+                        <button type="button"
+                            class="toggle-password-btn position-absolute translate-middle-y bg-transparent border-0 "
+                            data-type="password" aria-label="Toggle password visibility">
+                            <i class="bi bi-eye"></i>
                         </button>
                     </div>
                 </div>
@@ -134,7 +138,7 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
             registerLinkFooter.classList.remove('disabled'); // Re-enable footer register link
             serverMessage.style.display = 'none';
         }
-    }, 1000);    
+    }, 1000);
     <?php endif; ?>
 
     // Client-side form validation
