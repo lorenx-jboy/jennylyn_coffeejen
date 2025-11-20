@@ -50,22 +50,28 @@ if (isset($_POST['resetPassword'])) {
             $matchQ2 = password_verify(strtolower($q2), $row['a2_answer']);
             $matchQ3 = password_verify(strtolower($q3), $row['a3_answer']);
 
-            if ($matchQ1 && $matchQ2 && $matchQ3) {
+            // Verify security answers using password_verify
+$answersMatch = password_verify(strtolower($q1), $row['a1_answer']) &&
+                password_verify(strtolower($q2), $row['a2_answer']) &&
+                password_verify(strtolower($q3), $row['a3_answer']);
 
-                $passHash = password_hash($new, PASSWORD_DEFAULT);
+if ($answersMatch) {
 
-                $update = $pdo->prepare("UPDATE users SET password_hash = ? WHERE id_number = ?");
-                $ok = $update->execute([$passHash, $idNo]);
+    // Hash new password securely
+    $passHash = password_hash($new, PASSWORD_DEFAULT);
 
-                if ($ok) {
-                    $success = "Password reset successful!";
-                } else {
-                    $error = "Failed to update password.";
-                }
+    // Update password in database
+    $update = $pdo->prepare("UPDATE users SET password_hash = ? WHERE id_number = ?");
+    if ($update->execute([$passHash, $idNo])) {
+        $success = "Password reset successful!";
+    } else {
+        $error = "Failed to update password.";
+    }
 
-            } else {
-                $error = "Security answers do not match.";
-            }
+} else {
+    $error = "Security answers do not match.";
+}
+
         }
     }
 }

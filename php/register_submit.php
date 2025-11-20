@@ -77,7 +77,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $zip_code = $_POST['zipcode'];
     $email = $_POST['email'];
     $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+    $password =$_POST['password'];
     $a1_question = $_POST['a1_question'];
     $a1_answer = $_POST['a1_answer'];
     $a2_question = $_POST['a2_question'];
