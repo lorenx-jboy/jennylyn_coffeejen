@@ -85,71 +85,10 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
     <title>Brewstack Coffee - Reset Password</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 
 
-    <style>
-    body {
-        background-image: url("../image/image2.png");
-        background-color: rgba(0, 0, 0, 0.25);
-        background-blend-mode: darken;
-        background-size: cover;
-        background-position: center;
-        margin: 0;
-        padding: 0;
-        color: #ecebea;
-    }
-
-    header,
-    footer {
-        background: #1a1412b5;
-        color: #ecebea;
-        padding: 10px 20px;
-    }
-
-    footer {
-        text-align: center;
-        font-size: 14px;
-    }
-
-    .page-wrapper {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .container-wrapper {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 10px;
-    }
-
-    .card {
-        width: 100%;
-        max-width: 500px;
-        border-radius: 14px;
-        background-color: rgba(78, 52, 46, 0.9);
-        padding: 20px;
-    }
-
-    h3 {
-        text-align: center;
-        margin-bottom: 15px;
-    }
-
-    .form-control {
-        border-radius: 8px;
-        margin-bottom: 10px;
-        height: 36px;
-    }
-
-    .btn {
-        border-radius: 8px;
-    }
-    </style>
 </head>
 
 <body>

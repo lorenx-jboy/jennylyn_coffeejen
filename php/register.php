@@ -138,152 +138,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/register.css">
 
-    <style>
-    body {
-        background-image: url("../image/image2.png");
-        background-color: rgba(0, 0, 0, 0.25);
-        /* darkness level */
-        background-blend-mode: darken;
-        /* or try multiply */
-        background-size: cover;
-        background-position: center;
-        margin: 0;
-        padding: 0;
-    }
-
-    header,
-    footer {
-        background: #1a1412b5;
-        color: #ecebea;
-        padding: 10px 20px;
-    }
-
-    footer {
-        text-align: center;
-        font-size: 14px;
-    }
-
-    /* FIXED LAYOUT, NO SCROLL */
-    .page-wrapper {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .register-container {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 10px;
-    }
-
-    .register-box {
-        /* background: #522b2099; */
-        width: 100%;
-        max-width: 1200px;
-        padding: 20px 40px;
-        border-radius: 14px;
-        /* overflow: hidden; */
-        /* max-height: 100vh; */
-
-    }
-
-    h2 {
-        text-align: center;
-        margin-bottom: 10px;
-        font-weight: 1000;
-        color: #f8f3e9;
-    }
-
-    h3 {
-        font-size: 16px;
-        margin-top: 10px;
-        border-bottom: 1px solid #c09d74;
-        padding-bottom: 3px;
-        margin-bottom: 8px;
-    }
-
-    .form-control,
-    select {
-        height: 28px;
-        /* compact height */
-        font-size: 13px;
-        padding: 2px 6px;
-    }
-
-    .btn-register {
-        background-color: #4e342e;
-        width: 100%;
-        padding: 6px;
-        font-size: 14px;
-        font-weight: bold;
-        color: #c09d74;
-        border: none;
-        border-radius: 8px;
-    }
-
-    /* Compact spacing */
-    .row.g-2 {
-        --bs-gutter-y: 5px;
-        --bs-gutter-x: 8px;
-    }
-
-
-    .error-message {
-        color: #d9534f;
-        font-size: 13px;
-        font-weight: 500;
-        margin-top: 2px;
-        min-height: 14px;
-        display: block;
-    }
-
-    .input-error {
-        border-color: #d9534f !important;
-    }
-
-
-    /* Remove default show password icon  */
-    input[type="password"]::-ms-reveal,
-    input[type="password"]::-ms-clear {
-        display: none !important;
-    }
-
-    input[type="password"]::-webkit-textfield-decoration-container,
-    input[type="password"]::-webkit-credentials-auto-fill-button {
-        display: none !important;
-        visibility: hidden;
-        pointer-events: none;
-    }
-
-    .span {
-        color: red;
-    }
-
-    /* Remove default show password icon */
-    .form-control.is-valid,
-    .was-validated .form-control:valid {
-        background-image: none !important;
-        padding-right: .75rem !important;
-        /* optional: remove extra space */
-    }
-
-    .toggle-password-btn {
-        top: 15px;
-        right: 25px;
-        transform: translateY(-50%);
-    }
-
-    .toggle-password-btn:focus {
-        outline: 1px solid #c09d74;
-    }
-
-    input {
-        color: brown;
-    }
-    </style>
 </head>
 
 <body>
@@ -302,17 +158,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif; ?>
         </header>
 
-        <div class="register-container">
-            <div class="register-box">
-                <h2>Registration Form</h2>
+        <div class="register-container ">
+            <div class="register-box ">
+                <h2 class="text-white">Registration Form</h2>
                 <form id="register-form" action="" method="post">
                     <!-- PERSONAL INFO -->
-                    <h3>Personal Information</h3>
+                    <h3 class="text-light">Personal Information</h3>
                     <div class="row g-2">
 
                         <div class="col-md-3">
-                            <div class="form-group">
-                                <label>ID No. <span class="span">*</span></label>
+                            <div class="form-group text-light">
+                                <label class="text-light">ID No. <span class="span">*</span></label>
                                 <input type="text" class="form-control " id="id_number" name="id_number" readonly
                                     value="<?php echo $nextIdNumber; ?>" data-validate="required|id_number">
                                 <small class="error-message invalid-feedback"></small>
@@ -320,8 +176,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group">
-                                <label>First Name <span class="span">*</span></label>
+                            <div class="form-group text-light">
+                                <label class="">First Name <span class="span">*</span></label>
                                 <input type="text" class="form-control " id="first_name" name="first_name" required
                                     data-validate="required|first_name">
                                 <small class="error-message invalid-feedback"></small>
@@ -329,8 +185,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Middle <span class="span" style="font-style:italic;">(optional)</span></label>
+                            <div class="form-group text-light">
+                                <label>Middle Name<span class="span"
+                                        style="font-style:italic;">(optional)</span></label>
                                 <input type="text" class="form-control " id="middle_name" name="middle_name"
                                     data-validate="middle_name">
                                 <small class="error-message invalid-feedback"></small>
@@ -338,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group text-light">
                                 <label>LastName <span class="span">*</span></label>
                                 <input type="text" class="form-control " id="last_name" name="last_name" required
                                     data-validate="required|last_name">
@@ -347,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group text-light">
                                 <label>Extenstion name <span class="span" ;
                                         style="font-style:italic;">(optional)</span></label>
                                 <select id="extension_name" class="form-control " name="extension_name"
@@ -361,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group text-light">
                                 <label>Sex <span class="span">*</span></label>
                                 <select id="sex" class="form-control " name="sex" required data-validate="required">
                                     <option value="">Select</option>
@@ -373,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group text-light">
                                 <label>Birthdate <span class="span">*</span></label>
                                 <input type="date" class="form-control " id="birthdate" name="birthdate" required
                                     data-validate="required|birthdate">
@@ -382,7 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
 
                         <div class="col-md-3">
-                            <div class="form-group">
+                            <div class="form-group text-light">
                                 <label>Age <span class="span">*</span></label>
                                 <input type="text" class="form-control " id="age" name="age" readonly
                                     data-validate="required|age">
@@ -394,43 +251,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
                     <!-- ADDRESS -->
-                    <h3>Address</h3>
+                    <h3 class="text-light">Address</h3>
                     <div class="row g-2">
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-light">
                             <label>Purok <span class="span">*</span></label>
                             <input type="text" class="form-control " id="purok" name="purok" required
                                 data-validate="required|purok">
                             <small class="error-message invalid-feedback"></small>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-light">
                             <label>Barangay <span class="span">*</span></label>
                             <input type="text" class="form-control " id="barangay" name="barangay" required
                                 data-validate="required|barangay">
                             <small class="error-message invalid-feedback"></small>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-light">
                             <label>City <span class="span">*</span></label>
                             <input type="text" class="form-control " id="city" name="city" required
                                 data-validate="required|city">
                             <small class="error-message invalid-feedback"></small>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-light">
                             <label>Province <span class="span">*</span></label>
                             <input type="text" class="form-control " id="province" name="province" required
                                 data-validate="required|province">
                             <small class="error-message invalid-feedback"></small>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-light">
                             <label>Country <span class="span">*</span></label>
                             <input type="text" class="form-control " id="country" name="country" required
                                 data-validate="required|country">
                             <small class="error-message invalid-feedback"></small>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-light">
+                            <div class="form-group text-light"></div>
                             <label>Zip <span class="span">*</span></label>
                             <input type="text" class="form-control " id="zipcode" maxlength="4" name="zipcode" required
                                 data-validate="required|zipcode">
@@ -440,23 +298,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <!-- CREDENTIALS -->
-                    <h3>Credentials</h3>
+                    <h3 class="text-light">Credentials</h3>
                     <div class="row g-2">
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-light">
+                            <div class="form-group text-light"></div>
                             <label>Email <span class="span">*</span></label>
                             <input type="email" class="form-control " id="email" name="email" required
                                 data-validate="required|email">
                             <small class="error-message invalid-feedback"></small>
 
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-light">
+                            <div class="form-group text-light"></div>
                             <label>Username <span class="span">*</span></label>
                             <input type="text" class="form-control " id="username" name="username" required
                                 data-validate="required|username">
                             <small class="error-message invalid-feedback"></small>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-light">
                             <label>Password <span class="span">*</span></label>
                             <div class="position-relative">
                                 <input type="password" class="form-control" id="password" name="password" required
@@ -475,7 +335,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-3 text-light">
                             <label>Re-enter Password <span class="span">*</span></label>
                             <div class="position-relative">
                                 <input type="password" class="form-control" id="repassword" name="repassword" required
@@ -491,11 +351,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <!-- SECURITY -->
-                    <h3>Security Questions</h3>
+                    <h3 class="text-light">Security Questions</h3>
                     <div class="row">
                         <!-- Q1 -->
                         <div class="col-md-4 ">
-                            <label>Q1 <span class="text-danger">*</span></label>
                             <select id="a1_question" class="form-control" name="a1_question" required>
                                 <option value="" disabled selected hidden>Select Question 1</option>
                                 <option value="teacher">Who is your favorite teacher in high school?</option>
@@ -521,7 +380,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Q2 -->
                         <div class="col-md-4 ">
-                            <label>Q2 <span class="text-danger ">*</span></label>
                             <select id="a2_question" class="form-control " name="a2_question" required>
                                 <option value="" disabled selected hidden>Select Question 2</option>
                                 <option value="dream_job">What was your dream job when you were a kid?</option>
@@ -548,7 +406,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <!-- Q3 -->
                         <div class="col-md-4">
-                            <label>Q3 <span class="text-danger">*</span></label>
                             <select id="a3_question" class="form-control " name="a3_question" required>
                                 <option value="" disabled selected hidden>Select Question 3</option>
                                 <option value="first_job">What was your first part-time or summer job?</option>
@@ -591,11 +448,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     </div>
 
-    <!--<script src="../js/personal_information_register.js"></script> 
-<script src="../js/address_access_register.js"></script>
-<script src="../js/password_register.js"></script>
-<script src="../js/security_question_register.js"></script>
--->
+
 
     <script type="module" src="../js/register.js"></script>
 </body>
