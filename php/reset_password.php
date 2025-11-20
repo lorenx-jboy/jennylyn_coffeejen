@@ -100,17 +100,23 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
 
         <!-- MAIN CONTAINER -->
         <div class="container-wrapper">
-            <form id="password-reset-form" class="container p-4 mt-3 d-flex flex-column rounded-2" style="max-width: 800px; height: 80vh;" novalidate>
+            <form id="password-reset-form" class="container p-4 mt-3 d-flex flex-column rounded-2" style="max-width: 800px; height: 80vh;">
                 <h3 class="text-warning text-shadow text-center">🔐 Reset Password</h3>
                 <p class="text-center text-light">Enter your ID Number to answer Authentication questions and reset your password.</p>
 
                 <div class="row flex-grow-1">
                     <!-- Right Column: Email + Password Fields -->
                     <div class="col-md-6 position-relative">
+
+                        <div class="mb-3 position-relative">
+                            <label for="" class="form-label">Username:</label>
+                            <span class="fw-bold" name="resetPass">None</span>
+                        </div>
+
                         <!-- ID Number Input -->
                         <div class="mb-3 position-relative">
                             <label for="user_id" class="form-label">ID Number</label>
-                            <input type="text" class="form-control" id="user_id" name="resetIdNo" placeholder="XXXX-XXXX" value="<?= $_POST['resetIdNo'] ?? '' ?>" maxlength="9" required>
+                            <input type="text" class="form-control" id="user_id" name="user_id" placeholder="XXXX-XXXX" maxlength="9" required>
                             <div class="invalid-feedback">⚠️ User ID must be in the format xxxx-xxxx.</div>
                         </div>
 
@@ -145,7 +151,7 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                         
                         <!-- Question 1 -->
                         <div class="mb-2 position-relative">
-                            <select class="form-select" id="authQuestion1Select" name="auth_question_1" required>
+                            <select class="form-select authQuestion" id="authQuestion1Select" name="auth_question_1" required>
                                 <option value="" selected>Select question 1</option>
                                 <option value="best_friend">Who is your best friend in elementary?</option>
                                 <option value="childhood_home">What street did you grow up on?</option>
@@ -164,7 +170,7 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
 
                         <!-- Question 2 -->
                         <div class="mb-2 position-relative">
-                            <select class="form-select" id="authQuestion2Select" name="auth_question_2" required>
+                            <select class="form-select authQuestion" id="authQuestion2Select" name="auth_question_2" required>
                                 <option value="" selected>Select question 2</option>
                                 <option value="favorite_pet">What is the name of your favorite pet?</option>
                                 <option value="birth_city">In what city were you born?</option>
@@ -183,7 +189,7 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
 
                         <!-- Question 3 -->
                         <div class="position-relative">
-                            <select class="form-select" id="authQuestion3Select" name="auth_question_3" required>
+                            <select class="form-select authQuestion" id="authQuestion3Select" name="auth_question_3" required>
                                 <option value="" selected>Select question 3</option>
                                 <option value="favorite_teacher">Who is your favorite teacher in high school?</option>
                                 <option value="first_vacation">Where did you spend your first vacation?</option>
@@ -279,6 +285,7 @@ function clearFormData() {
 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("password-reset-form");
+    form.setAttribute('novalidate', true);
 
     loadFormData();
 
@@ -289,7 +296,32 @@ document.addEventListener("DOMContentLoaded", () => {
     form.addEventListener("change", saveFormData);
 
     // When submitted, clear saved data
-    form.addEventListener("submit", clearFormData);
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        alert('submitting');
+        let result = null;
+        const state = getResetState();
+        alert(state);
+        if (state.validId && !state.validAuth) {
+            result = await authenticateQuestions(e.target);
+            console.warn('authenticating questions');
+            console.table(result);
+        }
+
+        if (state.validId && state.validAuth) {
+            result = await submitPasswordReset(e.target);
+            console.warn('submitting password reset');
+            console.table(result);
+        } 
+
+        if (state.passwordResetting) {
+            result = await resetPassword(e.target);
+            console.warn('resetting password');
+            console.table(result);
+        }
+
+
+    });
 });
        
 
@@ -310,33 +342,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         
         // Enable Submit Button when all answers are filled in
-        document.getElementById('password-reset-form').addEventListener('input', function() {
-            let isValid = true;
-            let answersFilled = true;
+        // document.getElementById('password-reset-form').addEventListener('input', function() {
+        //     let isValid = true;
+        //     let answersFilled = true;
 
-            // Check if all answers are filled in
-            document.querySelectorAll('.authAnswer').forEach(function(input) {
-                if (input.value.trim() === '') {
-                    answersFilled = false;
-                }
-            });
+        //     // Check if all answers are filled in
+        //     document.querySelectorAll('.authAnswer').forEach(function(input) {
+        //         if (input.value.trim() === '') {
+        //             answersFilled = false;
+        //         }
+        //     });
 
-            // Enable/Disable the submit button
-            document.querySelector('button[type="submit"]').disabled = !(answersFilled);
-        });
-
-        const userId = document.getElementById('user_id');
-
-        document.getElementById('user_id').addEventListener('input', async () => {
-            
-            const result = await checkUserId(userId.value);
-        });
-
+        //     // Enable/Disable the submit button
+        //     document.querySelector('button[type="submit"]').disabled = !(answersFilled);
+        // });
             
         const urls = {
             checkUserId: "/api/check_user_id.php",
+            resetPassword: "/api/reset_password.php",
+            authenticateQuestions: "/api/authenticate_questions.php",
+        }   
 
-        }
         
         async function checkUserId(user_id) {
             try {
@@ -366,39 +392,135 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
         document.addEventListener("DOMContentLoaded", () => {
-            const state = getResetState();
 
-            console.log("Loaded reset state:", state);
+            console.log("Loaded reset state:");
+
+           updateResetForm();
+           userIdInput.dispatchEvent(new Event("input"));
+
+        });
+
+
+
+
+        // element declarations
+        const userIdInput = document.getElementById("user_id");
+        const usernameDisplay = document.querySelector("span[name='resetPass']");
+
+        const authquestions = document.querySelectorAll(".authQuestion");
+        const authAnswers = document.querySelectorAll(".authAnswer");
+
+        function updateAuthQuestions(trigger = false) {
+            authquestions.forEach(q => {
+                q.disabled = trigger;
+            });
+
+            authAnswers.forEach(a => {
+                a.disabled = trigger;
+            });
+        }
+
+        function updatePasswordResetFields(trigger = false) {
+            const passwordInput = document.getElementById("newPassword");
+            const confirmPasswordInput = document.getElementById("confirmPassword");
+
+            passwordInput.disabled = trigger;
+            confirmPasswordInput.disabled = trigger;
+        }
+
+        function updateResetForm(username = "",state = getResetState()) {
+
+            // disable auth questions and answer fields
+            updateAuthQuestions(true);
 
             if (state.validId) {
+                userIdInput.disabled = true;
+                userIdInput.classList.add("is-valid");
+                if (username) usernameDisplay.textContent = username;
+                updateAuthQuestions();
+                updatePasswordResetFields(true);
+
                 // e.g., keep fields visible, skip ID validation step
+            } else {
+                userIdInput.disabled = false;
+                userIdInput.classList.remove("is-valid");
+                updatePasswordResetFields(true);
+                updateAuthQuestions(true);
             }
 
             if (state.validAuth) {
                 // enable password reset fields
+                updatePasswordResetFields();
+            } else {
+                updatePasswordResetFields(true);
             }
 
             if (state.passwordResetting) {
                 // restore progress UI
             }
-        });
 
+        }
 
+        async function submitPasswordReset(form) {
+            const data = new FormData(form);
+            try {
+                const response = await fetch(urls.resetPassword, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
 
-        const userIdInput = document.getElementById("user_id");
+                const data = await response.json();
+                console.table(data);
+                return data;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
 
-        userIdInput.addEventListener("input", function () {
+        async function authenticateQuestions(form) {
+            const data = new FormData(form);
+            try {
+                const response = await fetch(urls.authenticateQuestions, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const data = await response.json();
+                console.table(data);
+                return data;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        userIdInput.addEventListener("input", async (e) => {
+            const input = e.target;
             // Remove all non-digit characters
-            let digits = this.value.replace(/\D/g, "");
+            let digits = input.value.replace(/\D/g, "");
 
             // Limit to max 8 digits (4 + 4)
             digits = digits.substring(0, 8);
 
             // Add dash after 4 digits if needed
             if (digits.length > 4) {
-                this.value = digits.substring(0, 4) + "-" + digits.substring(4);
+                input.value = digits.substring(0, 4) + "-" + digits.substring(4);
             } else {
-                this.value = digits;
+                input.value = digits;
+            }
+
+            const result = await checkUserId(userIdInput.value);
+            if (result.success) {
+                setResetState({ validId: true }); 
+                updateResetForm(result.username);     
+            } else {
+                setResetState({ validId: false });
+                updateResetForm();
             }
         });
 

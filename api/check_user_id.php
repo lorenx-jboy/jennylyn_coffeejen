@@ -10,7 +10,7 @@ if (!preg_match('/^\d{4}-\d{4}$/', $id)) {
     exit;
 }
 
-$stmt = $pdo->prepare("SELECT a1_question, a2_question, a3_question FROM users WHERE id_number = ?");
+$stmt = $pdo->prepare("SELECT a1_question, a2_question, a3_question, username FROM users WHERE id_number = ?");
 $stmt->execute([$id]);
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -21,6 +21,7 @@ if (!$row) {
 
 echo json_encode([
     "success" => true,
+    'username' => $row['username'],
     "questions" => [
         "q1" => $row["a1_question"],
         "q2" => $row["a2_question"],
