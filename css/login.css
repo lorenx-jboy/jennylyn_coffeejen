@@ -141,12 +141,14 @@ main {
     text-decoration: underline;
 }
 
+
+/* 
 footer {
     text-align: center;
     padding: 10px 0;
     font-size: 12px;
     background: #1a1412b5;
-}
+} */
 
 /* Disabled states */
 /* button:disabled {

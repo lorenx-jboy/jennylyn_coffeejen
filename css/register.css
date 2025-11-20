@@ -9,32 +9,38 @@
         background-position: center;
     } */
  
-    footer {
+    /* footer {
         text-align: center;
         font-size: 14px;
         
         background: #1a1412b5;
         color: #ecebea;
         padding: 10px 20px;
-    } 
+    }  */
 
     /* FIXED LAYOUT, NO SCROLL */
-    .page-wrapper {
+    /* .page-wrapper {
         min-height: 100vh;
         display: flex;
         flex-direction: column;
-    }
+    } */
 
-    .register-container {
+    /* .register-container {
         flex: 1;
         display: flex;
         justify-content: center;
         align-items: center;
         padding: 10px;
+    } */
+
+    
+    #register-form {
+        background: #d7d1d02c;
+        padding: 10px 20px;
+        border-radius: 10px;
     }
 
     .register-box {
-        background: #d7d1d02c;
         width: 100%;
         max-width: 1200px;
         padding: 20px 40px;

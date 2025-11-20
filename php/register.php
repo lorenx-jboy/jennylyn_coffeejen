@@ -141,7 +141,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="../css/register.css">
 
     <link rel="stylesheet" href="../css/style.css">
-
 </head>
 <body>
     <div class="page-wrapper">        
@@ -151,8 +150,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="register-container ">
             <div class="register-box ">
-                <h2 class="text-white text-center">Registration Form</h2>
                 <form id="register-form" action="" method="post">
+                    <h2 class="text-white text-center">Registration Form</h2>
+
                     <!-- PERSONAL INFO -->
                     <h4 class="text-light">Personal Information</h4>
                     <div class="row g-2">

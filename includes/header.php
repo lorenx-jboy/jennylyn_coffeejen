@@ -24,6 +24,10 @@
                 <form method="post" action="logout.php" style="display:inline;">
                     <button class="btn btn-warning btn-sm ms-2">Logout</button>
                 </form>
+            <?php elseif (str_contains($_SERVER['REQUEST_URI'], 'reset')): ?>
+                <a href="home.php">Home</a> 
+                <a href="login.php" class="">Login</a>
+                <a href="register.php" id="register-link-header" class="btn btn-sm btn-warning register-link primary">Register</a>
             <?php endif ?>
         <?php endif; ?>
 

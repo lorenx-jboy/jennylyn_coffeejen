@@ -17,6 +17,19 @@ body {
     background-position: center;
 }
 
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+footer {
+    text-align: center;
+    padding: 15px 0;
+    background: rgba(26, 20, 18, 0.85);
+    color: #f8f3e9;
+    position: relative;
+    margin-top: 0;
+    font-size: 0.9rem;
+}
 
 /* header {
     background: #1a1412b5;
@@ -39,3 +52,5 @@ body {
 .nav-links a:hover {
     text-decoration: underline;
 } */
+
+

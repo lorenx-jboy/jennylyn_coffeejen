@@ -71,7 +71,7 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
 
             <p class="form-footer">
                 <?php if ((int)$failedAttempts >= 2 ): ?>
-                <a class="" href="reset_password.php">forgot password? click here -></a>
+                <a class="" href="reset_password.php">Forgot password? click here -></a>
                 <?php endif; ?>
             </p>
 
