@@ -27,7 +27,7 @@ if ($now < $_SESSION['lock_until']) {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $username = trim($_POST['username']);
-    $password = $_POST['password'];
+    $password = trim($_POST['password']);
 
     if (empty($username) || empty($password)) {
         $errorMsg = 'Please enter both username and password.';

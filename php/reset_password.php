@@ -171,7 +171,7 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
 
         <!-- MAIN CONTAINER -->
         <div class="container-wrapper">
-            <div class="card">
+            <!-- <div class="card">
                 <h3>🔐 Reset Password</h3>
 
                 <!-- Error -->
@@ -182,7 +182,7 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                 </div>
                 <?php endif; ?>
 
-                <!-- Success -->
+                <!-- Success --
                 <?php if (!empty($success)): ?>
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
                     <?= htmlspecialchars($success) ?>
@@ -193,7 +193,7 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                 </div>
                 <?php endif; ?>
 
-                <!-- STEP 1: Verify ID -->
+                <!-- STEP 1: Verify ID --
                 <?php if (!$questions && empty($success)): ?>
                 <form method="POST">
                     <label class="form-label">Enter your ID Number</label>
@@ -204,13 +204,13 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                 </form>
                 <?php endif; ?>
 
-                <!-- STEP 2: Verify Security Answers -->
+                <!-- STEP 2: Verify Security Answers --
                 <?php if ($questions && empty($success)): ?>
                 <form method="POST" class="mt-5">
                     <input type="hidden" name="resetIdNo" value="<?= htmlspecialchars($idNo) ?>">
                     <p class="fw-bold text-center mt-2">Answer Your Security Questions</p>
 
-                    <!-- Question 1 -->
+                    <!-- Question 1 --
                     <div class="mb-4">
                         <select id="a1_question" class="form-control" name="a1_question" required>
                             <option value="" disabled selected hidden>Select Question 1</option>
@@ -225,7 +225,7 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                             placeholder="Enter your answer">
                     </div>
 
-                    <!-- Question 2 -->
+                    <!-- Question 2 --
                     <div class="mb-4">
                         <select id="a2_question" class="form-control" name="a2_question" required>
                             <option value="" disabled selected hidden>Select Question 2</option>
@@ -240,7 +240,7 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                             placeholder="Enter your answer">
                     </div>
 
-                    <!-- Question 3 -->
+                    <!-- Question 3 --
                     <div class="mb-4">
                         <select id="a3_question" class="form-control" name="a3_question" required>
                             <option value="" disabled selected hidden>Select Question 3</option>
@@ -263,7 +263,7 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
 
                 <?php endif; ?>
 
-                <!-- STEP 3: Reset Password -->
+                <!-- STEP 3: Reset Password --
                 <?php if ($success && !empty($_SESSION['verified_idNo'])): ?>
                 <form method="POST">
                     <input type="hidden" name="resetIdNo" value="<?= htmlspecialchars($idNo) ?>">
@@ -282,7 +282,162 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                 </form>
                 <?php endif; ?>
 
+            </div> -->
+
+
+            
+<form id="password-reset-form" class="container p-4 mt-3 border d-flex flex-column bg-gray rounded-2"
+    style="max-width: 800px; height: 80vh;" novalidate>
+    <h3 class="mb-4 text-center text-primary">Password Reset</h3>
+    <p class="text-center text-light">Enter your ID Number to answer Authentication questions and reset your
+        password.</p>
+
+
+    <div class="row flex-grow-1">
+
+        <!-- Right Column: Email + Password Fields -->
+        <div class="col-md-6 position-relative">
+
+            <div class="mb-3 position-relative">
+                <label for="" class="form-label">Username:</label>
+                <span class="fw-bold" name="changepassUsername">None</span>
             </div>
+
+            <!-- User Email -->
+            <div class="mb-3 position-relative">
+                <label for="user_id" class="form-label">ID Number</label>
+                <input type="text" class="form-control" id="user_id" name="user_id" placeholder="XXXX-XXXX"
+                    value="<?= $_POST['user_id'] ?? '' ?>" maxlength="9">
+                <div class="invalid-feedback">
+                    ⚠️ User ID must be in the format xxxx-xxxx.
+                </div>
+            </div>
+
+
+            <!-- New Password -->
+            <div class="mb-3 position-relative">
+                <label for="newPassword" class="form-label">New Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="newPassword" name="new_password"
+                        placeholder="New password">
+                    <span class="input-group-text toggle-eye"><i class="bi bi-eye"></i></span>
+                </div>
+                <div class="invalid-feedback">
+                    Password is required.
+                </div>
+
+                <!-- Password Strength Box (Floating) -->
+                <div id="passwordStrength" class="border p-3 bg-light position-absolute"
+                    style="top: 70px; left: 0; right: 0; opacity: 1; display: none; z-index: 10; border-radius: 5px; transition: opacity 0.5s;">
+                    <div class="mb-2">
+                        <div class="progress">
+                            <div id="strengthBar" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <ul class="mb-0" style="list-style: none; padding-left: 0;">
+                        <li id="lengthReq">✔ At least 8 characters</li>
+                        <li id="specialReq">✔ Contains special character</li>
+                        <li id="capsReq">✔ Contains uppercase letter</li>
+                        <li id="numberReq">✔ Contains number</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Confirm New Password -->
+            <div class="mb-3 position-relative">
+                <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password">
+                    <span class="input-group-text toggle-eye"><i class="bi bi-eye"></i></span>
+                </div>
+                <div class="invalid-feedback">
+                    Password confirmation does not match.
+                </div>
+
+                <!-- Confirm Password Match Box -->
+                <div id="confirmStrength" class="border p-2 bg-light position-absolute"
+                    style="top: 70px; left: 0; right: 0; opacity: 1; display: none; z-index: 10; border-radius: 5px; transition: opacity 0.5s;">
+                    <span id="matchText">Passwords do not match</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left Column: Authentication Questions Only -->
+        <div class="col-md-6">
+            <label class="form-label">Authentication Questions</label>
+
+            <!-- Question 1 -->
+            <div class="mb-2 position-relative">
+                <select class="form-select" id="authQuestion1Select" name="auth_question_1">
+                    <option value="" selected>Select question 1</option>
+                    <option value="best_friend">Who is your best friend in elementary?</option>
+                    <option value="childhood_home">What street did you grow up on?</option>
+                    <option value="favorite_color">What is your favorite color?</option>
+                    <option value="first_teacher">Who was your first teacher?</option>
+                    <option value="favorite_food">What is your favorite food?</option>
+                    <option value="dream_job">What is your dream job?</option>
+                </select>
+                <div class="input-group mt-2">
+                    <input type="password" class="form-control authAnswer" name="auth_answer_1"
+                        placeholder="Answer to question 1">
+                    <span class="input-group-text toggle-eye"><i class="bi bi-eye"></i></span>
+                </div>
+                <div class="invalid-feedback">
+                    Invalid question or answer.
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="mb-2 position-relative">
+                <select class="form-select" id="authQuestion2Select" name="auth_question_2">
+                    <option value="" selected>Select question 2</option>
+                    <option value="favorite_pet">What is the name of your favorite pet?</option>
+                    <option value="birth_city">In what city were you born?</option>
+                    <option value="mother_maiden">What is your mother’s maiden name?</option>
+                    <option value="first_phone">What was your first mobile phone brand?</option>
+                    <option value="favorite_movie">What is your favorite movie?</option>
+                    <option value="first_car">What was the model of your first car?</option>
+                </select>
+                <div class="input-group mt-2">
+                    <input type="password" class="form-control authAnswer" name="auth_answer_2"
+                        placeholder="Answer to question 2">
+                    <span class="input-group-text toggle-eye"><i class="bi bi-eye"></i></span>
+                </div>
+                <div class="invalid-feedback">
+                    Invalid question or answer.
+                </div>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="position-relative">
+                <select class="form-select" id="authQuestion3Select" name="auth_question_3">
+                    <option value="" selected>Select question 3</option>
+                    <option value="favorite_teacher">Who is your favorite teacher in high school?</option>
+                    <option value="first_vacation">Where did you spend your first vacation?</option>
+                    <option value="childhood_nickname">What was your childhood nickname?</option>
+                    <option value="favorite_subject">What was your favorite subject in school?</option>
+                    <option value="favorite_hobby">What is your favorite hobby?</option>
+                    <option value="favorite_city">What city would you most like to visit?</option>
+                </select>
+                <div class="input-group mt-2">
+                    <input type="password" class="form-control authAnswer" name="auth_answer_3"
+                        placeholder="Answer to question 3">
+                    <span class="input-group-text toggle-eye"><i class="bi bi-eye"></i></span>
+                </div>
+                <div class="invalid-feedback">
+                    Invalid question or answer.
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Submit button always at the bottom -->
+    <div class="mt-auto">
+        <button type="submit" class="btn btn-primary w-100" disabled>Authenticate Questions</button>
+    </div>
+</form>
         </div>
 
         <!-- FOOTER -->
