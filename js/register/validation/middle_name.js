@@ -31,10 +31,8 @@ export const middleNameValidation = (value) => {
     const fieldLabel = "Middle name";
     const trimmed = value;
     let message = "";
-
-    if (!trimmed) {
-        message = `⚠️ ${fieldLabel} is required.`;
-    } else if (/\s{2,}/.test(trimmed)) {
+  
+    if (/\s{2,}/.test(trimmed)) {
         message = `⚠️ ${fieldLabel} cannot contain double spaces.`;
     } else {
         const words = trimmed.split(/\s+/);

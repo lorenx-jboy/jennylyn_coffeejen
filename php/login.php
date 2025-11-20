@@ -15,14 +15,11 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
                 alert('Your temporary block has expired. You can now login.');
             </script>
         ";
-        unset($_SESSION['lock_until']);
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +30,6 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
     <link rel="stylesheet" href="../css/login.css">
 
     <link rel="stylesheet" href="../css/style.css">
-
 </head>
 <body>
     <!-- header -->
@@ -57,7 +53,7 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
             <form id="login-form" action="/php/login_submit.php" method="POST" novalidate>
                 <div class="form-group ">
                     <label for="login-username">Username <span class="required">*</span></label>
-                    <input type="text" id="login-username" name="username" class="is-invalid"
+                    <input type="text" id="login-username" name="username" class=""
                         value="<?= htmlspecialchars($username ?? '') ?>" required pattern=".{3,}">
                     <div class="invalid-feedback">Username must be at least 3 characters.</div>
                     <small class="error-message invalid-feedback"></small>
@@ -77,19 +73,18 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
                     </div>
                 </div>
 
-
                 <button type="submit" class="btn-primary" id="login-button">Log In</button>
             </form>
 
             <p class="form-footer">
                 <?php if ((int)$failedAttempts >= 2 ): ?>
-                <a class="" href="reset_password.php" id="register-link-footer">forgot password? click here -></a>
+                <a class="" href="reset_password.php">forgot password? click here -></a>
                 <?php endif; ?>
             </p>
 
             <p class="form-footer">
                 Don't have an account? <a class="register-link <?= $remaining > 0 ? 'disabled' : '' ?>"
-                    href="register.php" id="register-link-footer">Register</a>
+                    href="register.php">Register</a>
             </p>
         </div>
     </main>
@@ -100,7 +95,7 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
 
     <script>
     // Password toggle
-    const toggleBtn = document.getElementById('toggle-login-password');
+    const toggleBtn = document.querySelector('.toggle-password-btn');
     const passwordInput = document.getElementById('login-password');
     toggleBtn.addEventListener('click', () => {
         const type = passwordInput.type === 'password' ? 'text' : 'password';
@@ -113,12 +108,12 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
     <?php if ($remaining > 0): ?>
     const loginBtn = document.getElementById('login-button');
     const registerLinkHeader = document.getElementById('register-link-header');
-    const registerLinkFooter = document.getElementById('register-link-footer');
+    // const registerLinkFooter = document.getElementById('register-link-footer');
     const serverMessage = document.querySelector('.server-message');
 
     loginBtn.disabled = true;
     registerLinkHeader.classList.add('disabled'); // Disable header register link
-    registerLinkFooter.classList.add('disabled'); // Disable footer register link
+    // registerLinkFooter.classList.add('disabled'); // Disable footer register link
 
     let remainingSeconds = <?= $remaining ?>;
     const countdownEl = document.getElementById('countdown');
@@ -131,7 +126,7 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
             clearInterval(interval);
             loginBtn.disabled = false;
             registerLinkHeader.classList.remove('disabled'); // Re-enable header register link
-            registerLinkFooter.classList.remove('disabled'); // Re-enable footer register link
+            // registerLinkFooter.classList.remove('disabled'); // Re-enable footer register link
             serverMessage.style.display = 'none';
         }
     }, 1000);

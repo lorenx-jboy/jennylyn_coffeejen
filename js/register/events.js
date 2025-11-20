@@ -49,10 +49,6 @@ export function bindValidation(form){
                 }
             }
 
-            
-
-
-
             updateUI(field, errorEl, result);
         })
     });

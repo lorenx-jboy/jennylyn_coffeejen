@@ -15,6 +15,9 @@ if (!isset($_SESSION['lock_until'])) {
 
 // Calculate delay based on attempts
 function getDelay($attempts) {
+    if ($attempts >= 3) {
+        return 60; // Lock for 60 seconds after 3 failed attempts
+    }
     return min($attempts * 15, 60); // 15s per attempt, max 60s
 }
 

@@ -189,21 +189,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <div class="form-group text-light">
                                 <label>LastName <span class="span">*</span></label>
                                 <input type="text" class="form-control " id="last_name" name="last_name" required
-                                    data-validate="last_name">
+                                    data-validate="required|last_name">
                                 <small class="error-message invalid-feedback"></small>
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="form-group text-light">
-                                <label>Extenstion name <span class="span" ;
-                                        style="font-style:italic;">(optional)</span></label>
-                                <select id="extension_name" class="form-control " name="extension_name"
-                                    data-validate="">
-                                    <option value="">None</option>
-                                    <option value="Jr">Jr</option>
-                                    <option value="Sr">Sr</option>
-                                </select>
+                                <label>Extension Name<span class="span">*</span></label>
+                                <input type="text" class="form-control " id="extension_name" name="last_name" required
+                                    data-validate="extension_name">
                                 <small class="error-message invalid-feedback"></small>
                             </div>
                         </div>
@@ -237,7 +232,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <small class="error-message invalid-feedback"></small>
                             </div>
                         </div>
-
                     </div>
 
 

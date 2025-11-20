@@ -33,7 +33,7 @@ body {
 }
 
 /* HEADER */
-header {
+/* header {
     background: #1a1412cc;
     backdrop-filter: blur(4px);
     padding: 15px 20px;
@@ -52,7 +52,7 @@ header {
 
 .nav-brand:hover {
     opacity: 0.8;
-}
+} */
 
 /* MAIN WRAPPER */
 .dashboard-wrapper {
