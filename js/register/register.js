@@ -65,6 +65,8 @@ export default function initRegister(){
         });
     });
 
+    
+localStorage.clear();
 
     //   test load
     //   window.addEventListener('load',()=>{
