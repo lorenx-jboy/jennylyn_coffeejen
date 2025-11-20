@@ -1,12 +1,24 @@
 <?php
 session_start();
 
+// $_SESSION['failed_attempts'] = 0; $_SESSION['lock_until'] = 0; // debug purposes
+
+
 // Calculate remaining lock time if the user is temporarily blocked
 $failedAttempts = $_SESSION['failed_attempts'] ?? 0;
 $remaining = 0;
 if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
     $remaining = $_SESSION['lock_until'] - time();
+    if ($remaining <= 0) {
+        echo "
+            <script>
+                alert('Your temporary block has expired. You can now login.');
+            </script>
+        ";
+        unset($_SESSION['lock_until']);
+    }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,9 +46,9 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
         <div class="form-container">
 
             <?php if ($remaining > 0): ?>
-            <div class="server-message">
-                Too many failed attempts. Please wait <span id="countdown"><?= $remaining ?></span> second(s).
-            </div>
+                <div class="server-message">
+                    Too many failed attempts. Please wait <span id="countdown"><?= $remaining ?></span> second(s).
+                </div>
             <?php endif; ?>
 
             <h2>Login</h2>
@@ -53,6 +65,7 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
                     <div class="invalid-feedback">Username must be at least 3 characters.</div>
                 </div>
 
+
                 <div class="form-group">
                     <label for="login-password">Password <span class="required">*</span></label>
                     <div class="password-container">
@@ -63,6 +76,7 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
                         </button>
                     </div>
                 </div>
+
 
                 <button type="submit" class="btn-primary" id="login-button">Log In</button>
             </form>
@@ -100,6 +114,7 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
     const loginBtn = document.getElementById('login-button');
     const registerLinkHeader = document.getElementById('register-link-header');
     const registerLinkFooter = document.getElementById('register-link-footer');
+    const serverMessage = document.querySelector('.server-message');
 
     loginBtn.disabled = true;
     registerLinkHeader.classList.add('disabled'); // Disable header register link
@@ -107,6 +122,7 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
 
     let remainingSeconds = <?= $remaining ?>;
     const countdownEl = document.getElementById('countdown');
+    serverMessage.style.display = 'block';
 
     const interval = setInterval(() => {
         remainingSeconds--;
@@ -116,8 +132,9 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
             loginBtn.disabled = false;
             registerLinkHeader.classList.remove('disabled'); // Re-enable header register link
             registerLinkFooter.classList.remove('disabled'); // Re-enable footer register link
+            serverMessage.style.display = 'none';
         }
-    }, 1000);
+    }, 1000);    
     <?php endif; ?>
 
     // Client-side form validation
