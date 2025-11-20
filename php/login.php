@@ -9,13 +9,6 @@ $failedAttempts = $_SESSION['failed_attempts'] ?? 0;
 $remaining = 0;
 if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
     $remaining = $_SESSION['lock_until'] - time();
-    if ($remaining <= 0) {
-        echo "
-            <script>
-                alert('Your temporary block has expired. You can now login.');
-            </script>
-        ";
-    }
 }
 ?>
 <!DOCTYPE html>
