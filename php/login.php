@@ -31,17 +31,13 @@ if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/login.css">
+
+    <link rel="stylesheet" href="../css/style.css">
+
 </head>
-
 <body>
-
-    <header class="d-flex justify-content-between align-items-center">
-        <a href="home.php" class="nav-brand">Brewstack Coffee</a>
-        <div class="nav-links">
-            <a href="home.php">Home</a>
-            <a href="register.php" id="register-link-header" class="register-link">Register</a>
-        </div>
-    </header>
+    <!-- header -->
+    <?php include '../includes/header.php' ?>
 
     <main>
         <div class="form-container">

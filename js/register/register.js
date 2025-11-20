@@ -65,9 +65,6 @@ export default function initRegister(){
         });
     });
 
-    
-localStorage.clear();
-
     //   test load
     //   window.addEventListener('load',()=>{
     //     form.querySelectorAll("[data-validate]").forEach(field => field.dispatchEvent(new Event("input")));

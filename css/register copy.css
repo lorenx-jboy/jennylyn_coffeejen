@@ -1,13 +1,16 @@
-    /* body {
-        min-height: 100vh;
+    body {
         background-image: url("../image/coffee.png");
         background-color: rgba(0, 0, 0, 0.25);
-
+        /* darkness level */
         background-blend-mode: darken;
-        /* or try multiply *
+        /* or try multiply */
         background-size: cover;
         background-position: center;
-    } */
+        margin: 0;
+        padding: 0;
+        /* overflow: hidden; */
+    }
+
  
     footer {
         text-align: center;
@@ -44,7 +47,7 @@
 
     }
 
-    /* h2 {
+    h2 {
         text-align: center;
         margin-bottom: 10px;
         font-weight: 1000;
@@ -57,7 +60,7 @@
         border-bottom: 1px solid #c09d74;
         padding-bottom: 3px;
         margin-bottom: 8px;
-    } */
+    }
 
     .form-control,
     select {
