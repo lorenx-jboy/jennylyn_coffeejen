@@ -2,6 +2,7 @@
 session_start();
 
 // Calculate remaining lock time if the user is temporarily blocked
+$failedAttempts = $_SESSION['failed_attempts'];
 $remaining = 0;
 if (isset($_SESSION['lock_until']) && time() < $_SESSION['lock_until']) {
     $remaining = $_SESSION['lock_until'] - time();
@@ -88,8 +89,8 @@ input:invalid { border-color: red; }
         </form>
 
         <p class="form-footer">
-            <?php if ($remaining > 0 ): ?>
-                <a class="register-link" href="register.php" id="register-link-footer">Register</a>
+            <?php if ((int)$failedAttempts >= 2 ): ?>
+                <a class="" href="reset_password.php" id="register-link-footer">forgot password? click here -></a>
             <?php endif; ?>
         </p>
 
