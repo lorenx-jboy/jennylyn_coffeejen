@@ -4,9 +4,9 @@ header("Content-Type: application/json");
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-$id = trim($data["id_number"]);
-$pass = $data["pass"];
-$confirm = $data["confirm"];
+$id = trim($data["user_id"]);
+$pass = $data["newPassword"];
+$confirm = $data["confirmNewPassword"];
 
 if ($pass !== $confirm) {
     echo json_encode(["success" => false, "message" => "Passwords do not match."]);

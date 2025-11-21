@@ -35,20 +35,14 @@
 
     
     #register-form {
-        background: #d7d1d02c;
+        background: #64553e6e;
         padding: 10px 20px;
+        /* padding: 20px 40px; */
+
         border-radius: 10px;
+        margin: 50px 110px;    
     }
 
-    .register-box {
-        width: 100%;
-        max-width: 1200px;
-        padding: 20px 40px;
-        border-radius: 14px;
-        /* overflow: hidden; */
-        /* max-height: 100vh; */
-
-    }
 
     /* h2 {
         text-align: center;
@@ -89,7 +83,6 @@
         --bs-gutter-y: 5px;
         --bs-gutter-x: 8px;
     }
-
 
     .error-message {
         color: #d9534f;

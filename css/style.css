@@ -23,11 +23,11 @@ body {
 
 footer {
     text-align: center;
-    padding: 15px 0;
+    padding: 10px;
     background: rgba(26, 20, 18, 0.85);
     color: #f8f3e9;
     position: relative;
-    margin-top: 0;
+    margin: 0;
     font-size: 0.9rem;
 }
 

@@ -26,6 +26,7 @@ $now = time();
 if ($now < $_SESSION['lock_until']) {
     $wait = $_SESSION['lock_until'] - $now;
     $errorMsg = "Too many failed attempts. Please wait $wait second(s) before trying again.";
+    $_SESSION['error'] = $errorMsg;
     header('Location: login.php');
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -34,6 +35,7 @@ if ($now < $_SESSION['lock_until']) {
 
     if (empty($username) || empty($password)) {
         $errorMsg = 'Please enter both username and password.';
+        $_SESSION['error'] = $errorMsg;
         header('Location: login.php');
     } else {
         try {
@@ -49,6 +51,9 @@ if ($now < $_SESSION['lock_until']) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
 
+                // clear error message after success login
+                unset($_SESSION['error']);
+
                 header('Location: dashboard.php');
                 exit;
 
@@ -59,6 +64,7 @@ if ($now < $_SESSION['lock_until']) {
                 $_SESSION['lock_until'] = time() + $delay;
 
                 $errorMsg = 'Invalid username or password.';
+                $_SESSION['error'] = $errorMsg;
                 header('Location: login.php');
                 exit;
             }

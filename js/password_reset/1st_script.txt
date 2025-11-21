@@ -1,0 +1,253 @@
+
+<!-- <script type="module" src="/js/password_reset/script.js"></script> -->
+
+<!--
+<script type="module">
+import { apis } from '/api/reset_password.js';
+
+document.addEventListener("DOMContentLoaded", () => {
+   // element declarations
+    const userIdInput = document.getElementById("user_id");
+    const usernameDisplay = document.querySelector("span[name='resetPass']");
+
+    const authquestions = document.querySelectorAll(".authQuestion");
+    const authAnswers = document.querySelectorAll(".authAnswer");
+
+    const RESET_STATE_KEY = "passwordResetState";
+
+
+
+    
+    updateResetForm();
+    loadFormData();
+
+
+
+
+    
+        const form = document.getElementById("password-reset-form");
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        form.setAttribute("novalidate", true);
+
+        const state = getResetState();
+
+        // Save and validate on input
+        form.addEventListener("input", () => {
+            saveFormData();
+        });
+
+        // Save on dropdown / change events
+        form.addEventListener("change", saveFormData);
+
+        // Form submission handler
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            
+            console.table(state);
+            
+            // Ensure submit becomes active if ID is valid
+            // if (state.validId) {
+            //     submitBtn.disabled = false;
+            // }
+
+            if (state.passwordResetting){
+
+            }
+
+            const submit = form.getAttribute('data-submit');
+
+            if (submit) {
+                alert(submit);
+            }
+
+
+        });
+
+    
+
+    const STORAGE_KEY = "passwordResetData";
+
+    // Save form data to localStorage
+    function saveFormData() {
+        const form = document.getElementById("password-reset-form");
+        const formData = new FormData(form);
+        const stored = {};
+
+        formData.forEach((value, key) => {
+            stored[key] = value;
+        });
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+    }
+
+    // Load saved data on page load
+    function loadFormData() {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (!saved) return;
+
+        const data = JSON.parse(saved);
+
+        for (const key in data) {
+            const field = document.querySelector(`[name="${key}"]`);
+            if (field) field.value = data[key];
+        }
+    }
+
+    // Clear storage on successful form submission
+    function clearFormData() {
+        localStorage.removeItem(STORAGE_KEY);
+    }
+
+
+
+    // DOMContentLoaded -- 
+            
+    function toggleSubmitButton() {
+        submitBtn.disabled = state.validId;
+    }
+
+       
+
+        // ----------- Initialization ------------
+
+
+        // Ensure userId input exists and behave the same way
+        userIdInput.classList.add("active");
+        userIdInput.dispatchEvent(new Event("input"));
+        userIdInput.focus();
+
+        // Disable submit button based on initial state
+
+        // ----------- Event Binding ------------
+
+
+        // ----------- Helpers ------------
+
+        
+            
+                
+         
+
+            // event listeners
+            authquestions.forEach(q => q.addEventListener("change", () => checkAuthQuestion(q)));
+            authAnswers.forEach(a => a.addEventListener("input", () => checkAuthAnswer(a)));
+            
+            function checkAuthQuestion(q) {
+                const invalid = q.value.trim() === "";
+                q.classList.toggle('is-invalid', invalid);
+                return !invalid;
+            }
+
+            function checkAuthAnswer(a) {
+                const invalid = a.value.trim() === "";
+                a.classList.toggle('is-invalid', invalid);
+                return !invalid;
+            }
+
+            // functions
+            function updateAuthQuestions(trigger = false) {
+                // disable userid input active
+                userIdInput.classList.toggle('active', trigger);
+
+                authquestions.forEach(q => {
+                    q.disabled = trigger;
+                    q.classList.toggle('active', !trigger);
+                });
+
+                authAnswers.forEach(a => {
+                    a.disabled = trigger;
+                    a.classList.toggle('active', !trigger);
+                });
+            }
+
+            function updatePasswordResetFields(trigger = false) {
+                const passwordInput = document.getElementById("newPassword");
+                const confirmPasswordInput = document.getElementById("confirmPassword");
+
+                passwordInput.disabled = trigger;
+                passwordInput.classList.toggle('active', !trigger);
+                confirmPasswordInput.disabled = trigger;
+                confirmPasswordInput.classList.toggle('active', !trigger);
+            }
+
+            function updateResetForm(username = "",state = getResetState()) {
+
+                // disable auth questions and answer fields
+                updateAuthQuestions(true);
+
+                if (state.validId) {
+                    userIdInput.disabled = true;
+                    userIdInput.classList.add("is-valid");
+                    if (username) usernameDisplay.textContent = username;
+                    updateAuthQuestions();
+                    updatePasswordResetFields(true);
+
+                    // e.g., keep fields visible, skip ID validation step
+                } else {
+                    userIdInput.disabled = false;
+                    userIdInput.classList.remove("is-valid");
+                    updatePasswordResetFields(true);
+                    updateAuthQuestions(true);
+                }
+
+                if (state.validAuth) {
+                    // enable password reset fields
+                    updatePasswordResetFields();
+                } else {
+                    updatePasswordResetFields(true);
+                }
+
+                if (state.passwordResetting) {
+                    // restore progress UI
+                }
+
+            }
+            
+            userIdInput.addEventListener("input", async (e) => {
+                const input = e.target;
+                // Remove all non-digit characters
+                let digits = input.value.replace(/\D/g, "");
+
+                // Limit to max 8 digits (4 + 4)
+                digits = digits.substring(0, 8);
+
+                // Add dash after 4 digits if needed
+                if (digits.length > 4) {
+                    input.value = digits.substring(0, 4) + "-" + digits.substring(4);
+                } else {
+                    input.value = digits;
+                }
+
+                const result = await checkUserId(userIdInput.value);
+                if (result.success) {
+                    setResetState({ validId: true }); 
+                    updateResetForm(result.username);
+                    toggleSubmitButton();
+                } else {
+                    setResetState({ validId: false });
+                    updateResetForm();
+                }
+            });
+
+            
+
+            // toggle password visibility
+            document.querySelectorAll(".toggle-password-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    // Find the closest input associated with this toggle button
+                    const input = btn.closest(".input-group").querySelector("input");
+                    const icon = btn.querySelector("i");
+
+                    if (input.type === "password") {
+                        input.type = "text";
+                        icon.classList.replace("bi-eye", "bi-eye-slash");
+                    } else {
+                        input.type = "password";
+                        icon.classList.replace("bi-eye-slash", "bi-eye");
+                    }
+                });
+            });
+
+});
+</script> -->
