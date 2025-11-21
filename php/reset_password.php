@@ -105,20 +105,11 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
 
     <main>
         <!-- MAIN CONTAINER -->
-<<<<<<< Updated upstream
         <form id="password-reset-form" class="container p-4 mt-3 d-flex flex-column rounded-2"
-            style="max-width: 800px; height: 80vh;" data-submit="verifyUserID">
+        data-submit="verifyUserID">
             <h3 class="text-warning text-shadow text-center">🔐 Reset Password</h3>
-            <p class="text-center text-light">Enter your ID Number to answer Authentication questions and reset your
-                password.</p>
+            <p class="text-center text-light">Enter your ID Number to answer Authentication questions and reset your password.</p>
             <br>
-=======
-    <form id="password-reset-form" class="container p-4 mt-3 d-flex flex-column rounded-2"
-    data-submit="verifyUserID">
-        <h3 class="text-warning text-shadow text-center">🔐 Reset Password</h3>
-        <p class="text-center text-light">Enter your ID Number to answer Authentication questions and reset your password.</p>
-        <br>
->>>>>>> Stashed changes
 
             <div class="row flex-grow-1">
                 <!-- Right Column: Email + Password Fields -->
@@ -188,7 +179,6 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                             <option value="childhood_game">What was your favorite game as a child?</option>
                             <option value="favorite_food">What is your favorite food?</option>
                         </select>
-                        <div class="invalid-feedback text-warning">Question is required.</div>
                         <div class="input-group mt-2">
                             <input type="password" class="form-control authAnswer" name="auth_answer_1"
                                 placeholder="Answer to question 1" required>
@@ -213,7 +203,6 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                             <option value="childhood_memory">What is your happiest childhood memory?</option>
                             <option value="superpower">If you could have any superpower, what would it be?</option>
                         </select>
-                        <div class="invalid-feedback text-warning">Question is required.</div>
                         <div class="input-group mt-2">
                             <input type="password" class="form-control authAnswer" name="auth_answer_2"
                                 placeholder="Answer to question 2" required>
@@ -239,7 +228,6 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                             <option value="fear">What is a fear you’ve overcome or still have?</option>
                             <option value="hidden_talent">Do you have a hidden talent? What is it?</option>
                         </select>
-                        <div class="invalid-feedback text-warning">Question is required.</div>
                         <div class="input-group mt-2">
                             <input type="password" class="form-control authAnswer" name="auth_answer_3"
                                 placeholder="Answer to question 3" required>
@@ -255,10 +243,10 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
             </div>
 
 
-            <!-- Submit button always at the bottom --
+            <!-- Submit button always at the bottom -->
             <div class="mt-3 mx-auto">
-                <button type="submit" class="btn btn-success w-100  " name="verifyAnswers">Authenticate
-                    Questions</button>
+                <button type="submit" class="btn btn-success w-100  " name="verifyAnswers">Authenticate Questions</button>
+            </div>
             <!-- Left Column: Authentication Questions Only --
             <div class="col-md-6">
                 <label class="form-label">Authentication Questions</label>
