@@ -82,8 +82,6 @@ const update = () => {
     "Very Strong": "yellowgreen"
   };
 
-
-
   // Display strength or error
   passwordStrengthEl.textContent = error || confirmError || strengthLabel;
   passwordStrengthEl.style.color = error || confirmError ? "red" : colorMap[strengthLabel] || "black";
