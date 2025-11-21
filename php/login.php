@@ -4,6 +4,7 @@ session_start();
 
 // login check -- redirect if already logged in
 require_once './functions.php';
+
 logged_in();
 
 // $_SESSION['failed_attempts'] = 0; $_SESSION['lock_until'] = 0; // debug purposes
@@ -20,6 +21,7 @@ $errorMsg = $_SESSION['error'] ?? '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,11 +32,14 @@ $errorMsg = $_SESSION['error'] ?? '';
     <link rel="stylesheet" href="../css/login.css">
 
     <link rel="stylesheet" href="../css/style.css">
+
 </head>
+
+
+
 <body>
     <!-- header -->
     <?php include '../includes/header.php' ?>
-
     <main>
         <div class="form-container">
 
@@ -51,20 +56,24 @@ $errorMsg = $_SESSION['error'] ?? '';
                     <label for="login-username">Username <span class="required">*</span></label>
                     <input type="text" id="login-username" name="username" class="<?= $errorMsg ? 'is-invalid' : '' ?>"
                         value="<?= htmlspecialchars($username ?? '') ?>" required pattern=".{3,}">
-                    <small class="error-message invalid-feedback"><?= htmlspecialchars($errorMsg) ? $errorMsg : 'Username must be at least 3 characters.' ?> </small>
+                    <small
+                        class="error-message invalid-feedback"><?= htmlspecialchars($errorMsg) ? $errorMsg : 'Username must be at least 3 characters.' ?>
+                    </small>
                 </div>
 
                 <div class="form-group">
                     <label for="login-password">Password <span class="required">*</span></label>
                     <div class="password-container is-invalid">
-                        <input type="password" id="login-password" name="password" required class="<?= $errorMsg ? 'is-invalid' : '' ?>"
-                            pattern=".{6,}">
+                        <input type="password" id="login-password" name="password" required
+                            class="<?= $errorMsg ? 'is-invalid' : '' ?>" pattern=".{6,}">
                         <button type="button"
                             class="toggle-password-btn position-absolute translate-middle-y bg-transparent border-0 "
                             data-type="password" aria-label="Toggle password visibility">
                             <i class="bi bi-eye"></i>
                         </button>
-                        <small class="error-message invalid-feedback"><?= htmlspecialchars($errorMsg) ? $errorMsg : 'Username must be at least 3 characters.' ?> </small>
+                        <small
+                            class="error-message invalid-feedback"><?= htmlspecialchars($errorMsg) ? $errorMsg : 'Username must be at least 3 characters.' ?>
+                        </small>
                     </div>
                 </div>
 

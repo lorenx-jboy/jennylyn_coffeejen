@@ -10,6 +10,7 @@ function login_required() {
 
 function logged_in() {
     if (isset($_SESSION['username'])) {
+        
         header("Location: home.php");
         exit;
     }

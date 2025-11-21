@@ -88,6 +88,7 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Brewstack Coffee - Reset Password</title>
@@ -97,146 +98,169 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
     <link rel="stylesheet" href="../css/reset_password.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
     <!-- header -->
     <?php include '../includes/header.php' ?>
-    
+
     <main>
         <!-- MAIN CONTAINER -->
-    <form id="password-reset-form" class="container p-4 mt-3 d-flex flex-column rounded-2" style="max-width: 800px; height: 80vh;"
-    data-submit="verifyUserID">
-        <h3 class="text-warning text-shadow text-center">🔐 Reset Password</h3>
-        <p class="text-center text-light">Enter your ID Number to answer Authentication questions and reset your password.</p>
-        <br>
+        <form id="password-reset-form" class="container p-4 mt-3 d-flex flex-column rounded-2"
+            style="max-width: 800px; height: 80vh;" data-submit="verifyUserID">
+            <h3 class="text-warning text-shadow text-center">🔐 Reset Password</h3>
+            <p class="text-center text-light">Enter your ID Number to answer Authentication questions and reset your
+                password.</p>
+            <br>
 
-        <div class="row flex-grow-1">
-            <!-- Right Column: Email + Password Fields -->
-            <div class="col-md-6 position-relative">
+            <div class="row flex-grow-1">
+                <!-- Right Column: Email + Password Fields -->
+                <div class="col-md-6 position-relative">
 
-                <div class="mb-3 position-relative">
-                    <label for="" class="form-label">Username:</label>
-                    <span class="fw-bold" name="resetPass">None</span>
-                </div>
-
-                <!-- ID Number Input -->
-                <div class="mb-3 position-relative">
-                    <label for="user_id" class="form-label">ID Number</label>
-                    <input type="text" class="form-control" id="user_id" name="user_id" placeholder="XXXX-XXXX" maxlength="9" required>
-                    <div class="invalid-feedback">⚠️ User ID must be in the format xxxx-xxxx.</div>
-                </div>
-
-                <!-- New Password -->
-                <div class="mb-3 position-relative">
-                    <label for="newPassword" class="form-label">New Password</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="newPassword" name="newPassword" placeholder="New password" required>
-                        <button type="button" class="toggle-password-btn position-absolute translate-middle-y bg-transparent border-0 " data-type="password" aria-label="Toggle password visibility">
-                            <i class="bi bi-eye"></i>
-                        </button>
+                    <div class="position-relative">
+                        <label for="" class="form-label">Username:</label>
+                        <span class="fw-bold" name="resetPass">None</span>
                     </div>
-                    <div id="password-strength" class="text-warning"></div>
-                    <div class="invalid-feedback">Password is required.</div>
+
+                    <!-- ID Number Input -->
+                    <div class="mb-3 position-relative">
+                        <label for="user_id" class="form-label">ID Number</label>
+                        <input type="text" class="form-control" id="user_id" name="user_id" placeholder="XXXX-XXXX"
+                            maxlength="9" required>
+                        <div class="invalid-feedback">⚠️ User ID must be in the format xxxx-xxxx.</div>
+                    </div>
+
+                    <!-- New Password -->
+                    <div class="mb-1 position-relative">
+                        <label for="newPassword" class="form-label">New Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="newPassword" name="newPassword"
+                                placeholder="New password" required>
+                            <button type="button"
+                                class="toggle-password-btn position-absolute translate-middle-y bg-transparent border-0 "
+                                data-type="password" aria-label="Toggle password visibility">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <div id="password-strength" class="text-warning"></div>
+                        <div class="invalid-feedback">Password is required.</div>
+                    </div>
+
+                    <!-- Confirm New Password -->
+                    <div class="mb-1 position-relative">
+                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                        <div class="input-group">
+                            <input type="password" class="form-control" id="confirmPassword" name="confirmNewPassword"
+                                placeholder="Confirm password" required>
+                            <button type="button"
+                                class="toggle-password-btn position-absolute translate-middle-y bg-transparent border-0 "
+                                data-type="password" aria-label="Toggle password visibility">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback">Password confirmation does not match.</div>
+                    </div>
                 </div>
 
-                <!-- Confirm New Password -->
-                <div class="mb-3 position-relative">
-                    <label for="confirmPassword" class="form-label">Confirm New Password</label>
-                    <div class="input-group">
-                        <input type="password" class="form-control" id="confirmPassword" name="confirmNewPassword" placeholder="Confirm password" required>
-                        <button type="button" class="toggle-password-btn position-absolute translate-middle-y bg-transparent border-0 " data-type="password" aria-label="Toggle password visibility">
-                            <i class="bi bi-eye"></i>
-                        </button>
+                <!-- Left Column: Authentication Questions Only -->
+                <div class="col-md-6">
+                    <label class="form-label">Authentication Questions</label>
+
+                    <!-- Question 1 -->
+                    <div class="mb-3 position-relative">
+                        <select class="form-select form-control authQuestion" id="authQuestion1Select" name="" required>
+                            <option value="" disabled selected hidden>Select Question 1</option>
+                            <option value="teacher">Who is your favorite teacher in high school?</option>
+                            <option value="pet">What is the name of your favorite pet?</option>
+                            <option value="best_friend">Who is your best friend in Elementary?</option>
+                            <option value="first_car">What was the make or model of your first car?</option>
+                            <option value="childhood_game">What was your favorite game as a child?</option>
+                            <option value="favorite_food">What is your favorite food?</option>
+                        </select>
+                        <div class="invalid-feedback text-warning">Question is required.</div>
+                        <div class="input-group mt-2">
+                            <input type="password" class="form-control authAnswer" name="auth_answer_1"
+                                placeholder="Answer to question 1" required>
+                            <button type="button"
+                                class="toggle-password-btn position-absolute translate-middle-y bg-transparent border-0"
+                                data-type="password" aria-label="Toggle password visibility">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback text-warning">Answer is required.</div>
                     </div>
-                    <div class="invalid-feedback">Password confirmation does not match.</div>
+
+                    <!-- Question 2 -->
+                    <div class="mb-3 position-relative">
+                        <select class="form-select form-control authQuestion" id="authQuestion2Select"
+                            name="auth_question_2" required>
+                            <option value="" disabled selected hidden>Select Question 2</option>
+                            <option value="dream_job">What was your dream job when you were a kid?</option>
+                            <option value="favorite_movie">What is your all-time favorite movie?</option>
+                            <option value="travel_destination">Which country would you love to visit the most?</option>
+                            <option value="hobby">What hobby do you enjoy the most?</option>
+                            <option value="childhood_memory">What is your happiest childhood memory?</option>
+                            <option value="superpower">If you could have any superpower, what would it be?</option>
+                        </select>
+                        <div class="invalid-feedback text-warning">Question is required.</div>
+                        <div class="input-group mt-2">
+                            <input type="password" class="form-control authAnswer" name="auth_answer_2"
+                                placeholder="Answer to question 2" required>
+                            <button type="button"
+                                class="toggle-password-btn position-absolute translate-middle-y  bg-transparent border-0"
+                                data-type="password" aria-label="Toggle password visibility">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback text-warning">Answer is required.</div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="mb-3 position-relative">
+                        <select class="form-select form-control authQuestion" id="authQuestion3Select"
+                            name="auth_question_3" required>
+                            <option value="" disabled selected hidden>Select Question 3</option>
+                            <option value="first_job">What was your first part-time or summer job?</option>
+                            <option value="favorite_book">Which book has influenced you the most?</option>
+                            <option value="childhood_nickname">Did you have a childhood nickname? What was it?</option>
+                            <option value="proud_moment">What is a moment in your life that made you really proud?
+                            </option>
+                            <option value="fear">What is a fear you’ve overcome or still have?</option>
+                            <option value="hidden_talent">Do you have a hidden talent? What is it?</option>
+                        </select>
+                        <div class="invalid-feedback text-warning">Question is required.</div>
+                        <div class="input-group mt-2">
+                            <input type="password" class="form-control authAnswer" name="auth_answer_3"
+                                placeholder="Answer to question 3" required>
+                            <button type="button"
+                                class="toggle-password-btn position-absolute translate-middle-y  bg-transparent border-0"
+                                data-type="password" aria-label="Toggle password visibility">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback text-warning">Answer is required.</div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Left Column: Authentication Questions Only -->
-            <div class="col-md-6">
-                <label class="form-label">Authentication Questions</label>
-                
-                <!-- Question 1 -->
-                <div class="mb-2 position-relative">
-                    <select class="form-select form-control authQuestion" id="authQuestion1Select" name="" required>
-                        <option value="" disabled selected hidden>Select Question 1</option>
-                        <option value="teacher">Who is your favorite teacher in high school?</option>
-                        <option value="pet">What is the name of your favorite pet?</option>
-                        <option value="best_friend">Who is your best friend in Elementary?</option>
-                        <option value="first_car">What was the make or model of your first car?</option>
-                        <option value="childhood_game">What was your favorite game as a child?</option>
-                        <option value="favorite_food">What is your favorite food?</option>
-                    </select>
-                    <div class="invalid-feedback text-warning">Question is required.</div>
-                    <div class="input-group mt-2">
-                        <input type="password" class="form-control authAnswer" name="auth_answer_1" placeholder="Answer to question 1" required>
-                        <button type="button" class="toggle-password-btn position-absolute translate-middle-y bg-transparent border-0" data-type="password" aria-label="Toggle password visibility">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </div>
-                    <div class="invalid-feedback text-warning">Answer is required.</div>
-                </div>
-
-                <!-- Question 2 -->
-                <div class="mb-2 position-relative">
-                    <select class="form-select form-control authQuestion" id="authQuestion2Select" name="auth_question_2" required>
-                        <option value="" disabled selected hidden>Select Question 2</option>
-                        <option value="dream_job">What was your dream job when you were a kid?</option>
-                        <option value="favorite_movie">What is your all-time favorite movie?</option>
-                        <option value="travel_destination">Which country would you love to visit the most?</option>
-                        <option value="hobby">What hobby do you enjoy the most?</option>
-                        <option value="childhood_memory">What is your happiest childhood memory?</option>
-                        <option value="superpower">If you could have any superpower, what would it be?</option>
-                    </select>
-                    <div class="invalid-feedback text-warning">Question is required.</div>
-                    <div class="input-group mt-2">
-                        <input type="password" class="form-control authAnswer" name="auth_answer_2" placeholder="Answer to question 2" required>
-                        <button type="button" class="toggle-password-btn position-absolute translate-middle-y  bg-transparent border-0" data-type="password" aria-label="Toggle password visibility">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </div>
-                    <div class="invalid-feedback text-warning">Answer is required.</div>
-                </div>
-
-                <!-- Question 3 -->
-                <div class="position-relative">
-                    <select class="form-select form-control authQuestion" id="authQuestion3Select" name="auth_question_3" required>
-                        <option value="" disabled selected hidden>Select Question 3</option>
-                        <option value="first_job">What was your first part-time or summer job?</option>
-                        <option value="favorite_book">Which book has influenced you the most?</option>
-                        <option value="childhood_nickname">Did you have a childhood nickname? What was it?</option>
-                        <option value="proud_moment">What is a moment in your life that made you really proud?</option>
-                        <option value="fear">What is a fear you’ve overcome or still have?</option>
-                        <option value="hidden_talent">Do you have a hidden talent? What is it?</option>
-                    </select>
-                    <div class="invalid-feedback text-warning">Question is required.</div>
-                    <div class="input-group mt-2">
-                        <input type="password" class="form-control authAnswer" name="auth_answer_3" placeholder="Answer to question 3" required>
-                        <button type="button" class="toggle-password-btn position-absolute translate-middle-y  bg-transparent border-0" data-type="password" aria-label="Toggle password visibility">
-                            <i class="bi bi-eye"></i>
-                        </button>
-                    </div>
-                    <div class="invalid-feedback text-warning">Answer is required.</div>
-                </div>
+            <!-- Submit button always at the bottom -->
+            <div class="mt-3 mx-auto">
+                <button type="submit" class="btn btn-success w-100  " name="verifyAnswers">Authenticate
+                    Questions</button>
             </div>
-        </div>
+        </form>
+    </main>
 
-        <!-- Submit button always at the bottom -->
-        <div class="mt-auto">
-            <button type="submit" class="btn btn-success w-100" name="verifyAnswers">Authenticate Questions</button>
-        </div>
-    </form>
-</main>
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2025 Brewstack Coffee — All rights reserved.</p>
+    </footer>
 
-        <!-- FOOTER -->
-<footer>
-    <p>&copy; 2025 Brewstack Coffee — All rights reserved.</p>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 
 
 
-<script src="../js/reset_password.js"></script>
+    <script src="../js/reset_password.js"></script>
 </body>
+
 </html>
