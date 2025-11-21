@@ -4,7 +4,7 @@ require_once "../config/db.php";
 header("Content-Type: application/json");
 
 $data = json_decode(file_get_contents("php://input"), true);
-$username = trim($data["username"] ?? "");
+$username = trim($_POST["username"] ?? "");
 
 
 $stmt = $pdo->prepare("SELECT username FROM users WHERE username = :username");

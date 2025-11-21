@@ -40,7 +40,6 @@ export function bindValidation(form){
             // Async checks
             if (result.valid && rules.includes("email")) {
                 const exists = await checkEmailExists(field.value); // implement this
-                console.log("check email",exists);
                 if (exists.success) {
                     result = { valid: false, message: "Email already exists." };
                 }
@@ -48,7 +47,6 @@ export function bindValidation(form){
 
             if (result.valid && rules.includes("username")) {
                 const exists = await checkUsernameExists(field.value); // implement this
-                console.log("check username",exists);
                 if (exists.success) {
                     result = { valid: false, message: "Username already exists." };
                 }

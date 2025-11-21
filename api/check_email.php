@@ -4,11 +4,11 @@ require_once "../config/db.php";
 header("Content-Type: application/json");
 
 $data = json_decode(file_get_contents("php://input"), true);
-$email = trim($data["email"] ?? "");
+$email = trim($_POST["email"] ?? "");
 
 
 $stmt = $pdo->prepare("SELECT email FROM users WHERE email = :email");
-$stmt->execute([':email' => $username]);
+$stmt->execute([':email' => $email]);
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$row) {
