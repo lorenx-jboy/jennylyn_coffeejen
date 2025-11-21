@@ -106,9 +106,10 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
     <main>
         <!-- MAIN CONTAINER -->
         <form id="password-reset-form" class="container p-4 mt-3 d-flex flex-column rounded-2"
-        data-submit="verifyUserID">
+            data-submit="verifyUserID">
             <h3 class="text-warning text-shadow text-center">🔐 Reset Password</h3>
-            <p class="text-center text-light">Enter your ID Number to answer Authentication questions and reset your password.</p>
+            <p class="text-center text-light">Enter your ID Number to answer Authentication questions and reset your
+                password.</p>
             <br>
 
             <div class="row flex-grow-1">
@@ -140,7 +141,7 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                                 <i class="bi bi-eye"></i>
                             </button>
                         </div>
-                        <div id="password-strength" class="text-warning"></div>
+                        <div id="password-strength"></div>
                         <div class="invalid-feedback">Password is required.</div>
                     </div>
 
@@ -170,7 +171,8 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
 
                     <!-- Question 1 -->
                     <div class="mb-3 position-relative">
-                        <select class="form-select form-control authQuestion" id="authQuestion1Select" name="" required>
+                        <select class="form-select form-control authQuestion" id="authQuestion1Select"
+                            name="auth_question_1" required>
                             <option value="" disabled selected hidden>Select Question 1</option>
                             <option value="teacher">Who is your favorite teacher in high school?</option>
                             <option value="pet">What is the name of your favorite pet?</option>
@@ -245,7 +247,8 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
 
             <!-- Submit button always at the bottom -->
             <div class="mt-3 mx-auto">
-                <button type="submit" class="btn btn-success w-100  " name="verifyAnswers">Authenticate Questions</button>
+                <button type="submit" class="btn btn-success w-100  " name="verifyAnswers">Authenticate
+                    Questions</button>
             </div>
             <!-- Left Column: Authentication Questions Only --
             <div class="col-md-6">

@@ -29,108 +29,10 @@ function getNextIdNumber($pdo) {
 $nextIdNumber = getNextIdNumber($pdo);
 
 // Create users table if it doesn't exist
-try {
-    $pdo->exec("
-        CREATE TABLE IF NOT EXISTS users (
-            id INT AUTO_INCREMENT PRIMARY KEY,
-            id_number VARCHAR(20) NOT NULL UNIQUE,
-            first_name VARCHAR(50) NOT NULL,
-            middle_name VARCHAR(50),
-            last_name VARCHAR(50) NOT NULL,
-            extension_name VARCHAR(10),
-            sex VARCHAR(10) NOT NULL,
-            birthdate DATE NOT NULL,
-            age INT,
-            purok VARCHAR(50),
-            barangay VARCHAR(50),
-            city VARCHAR(50),
-            province VARCHAR(50),
-            country VARCHAR(50),
-            zip_code VARCHAR(10),
-            email VARCHAR(100) NOT NULL UNIQUE,
-            username VARCHAR(50) NOT NULL UNIQUE,
-            password VARCHAR(255) NOT NULL,
-            a1_question VARCHAR(100),
-            a1_answer VARCHAR(100),
-            a2_question VARCHAR(100),
-            a2_answer VARCHAR(100),
-            a3_question VARCHAR(100),
-            a3_answer VARCHAR(100),
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-    ");
-} catch (PDOException $e) {
-    die("Table creation failed: " . $e->getMessage());
-}
+
 
 // Handle form submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_number = $_POST['id_number'];
-    $first_name = $_POST['first_name'];
-    $middle_name = $_POST['middle_name'] ?? '';
-    $last_name = $_POST['last_name'];
-    $extension_name = $_POST['extension_name'] ?? '';
-    $sex = $_POST['sex'];
-    $birthdate = $_POST['birthdate'];
-    $age = $_POST['age'] ?? null;
-    $purok = $_POST['purok'];
-    $barangay = $_POST['barangay'];
-    $city = $_POST['city'];
-    $province = $_POST['province'];
-    $country = $_POST['country'];
-    $zip_code = $_POST['zip_code'];
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $a1_question = $_POST['a1_question'];
-    $a1_answer = $_POST['a1_answer'];
-    $a2_question = $_POST['a2_question'];
-    $a2_answer = $_POST['a2_answer'];
-    $a3_question = $_POST['a3_question'];
-    $a3_answer = $_POST['a3_answer'];
 
-    try {
-        $stmt = $pdo->prepare("
-            INSERT INTO users
-            (id_number, first_name, middle_name, last_name, extension_name, sex, birthdate, age, purok, barangay, city, province, country, zip_code, email, username, password_hash, a1_question, a1_answer, a2_question, a2_answer, a3_question, a3_answer)
-            VALUES
-            (:id_number, :first_name, :middle_name, :last_name, :extension_name, :sex, :birthdate, :age, :purok, :barangay, :city, :province, :country, :zip_code, :email, :username, :password, :a1_question, :a1_answer, :a2_question, :a2_answer, :a3_question, :a3_answer)
-        ");
-        $stmt->execute([
-            ':id_number' => $id_number,
-            ':first_name' => $first_name,
-            ':middle_name' => $middle_name,
-            ':last_name' => $last_name,
-            ':extension_name' => $extension_name,
-            ':sex' => $sex,
-            ':birthdate' => $birthdate,
-            ':age' => $age,
-            ':purok' => $purok,
-            ':barangay' => $barangay,
-            ':city' => $city,
-            ':province' => $province,
-            ':country' => $country,
-            ':zip_code' => $zip_code,
-            ':email' => $email,
-            ':username' => $username,
-            ':password' => $password,
-            ':a1_question' => $a1_question,
-            ':a1_answer' => $a1_answer,
-            ':a2_question' => $a2_question,
-            ':a2_answer' => $a2_answer,
-            ':a3_question' => $a3_question,
-            ':a3_answer' => $a3_answer
-        ]);
-
-        $_SESSION['success'] = "Registration successful! You can now login.";
-        echo json_encode(['success' => true, 'message' => "Registration successful! You can now login."]);
-        header('Location: login.php');
-        exit;
-    } catch (PDOException $e) {
-        $errorMsg = "Registration failed: " . $e->getMessage();
-        error_log($errorMsg);
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -146,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <link rel="stylesheet" href="../css/style.css">
 </head>
+
 <body>
     <!-- header -->
     <?php include '../includes/header.php' ?>
@@ -178,8 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <div class="col-md-3">
                     <div class="form-group text-light">
-                        <label>Middle Name<span class="span"
-                                style="font-style:italic;">(optional)</span></label>
+                        <label>Middle Name<span class="span" style="font-style:italic;">(optional)</span></label>
                         <input type="text" class="form-control " id="middle_name" name="middle_name"
                             data-validate="middle_name">
                         <small class="error-message invalid-feedback"></small>
@@ -198,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="col-md-3">
                     <div class="form-group text-light">
                         <label>Extension Name<span class="span">*</span></label>
-                        <input type="text" class="form-control " id="extension_name" name="last_name" required
+                        <input type="text" class="form-control " id="extension_name" name="extension_name" required
                             data-validate="extension_name">
                         <small class="error-message invalid-feedback"></small>
                     </div>
@@ -354,7 +256,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <div class="position-relative mt-1">
                         <input type="password" id="a1_answer" name="a1_answer" class="form-control" required
-                            placeholder="Enter your answer"  data-validate="required|a1_answer">
+                            placeholder="Enter your answer" data-validate="required|a1_answer">
                         <button type="button"
                             class="toggle-password-btn position-absolute   translate-middle-y bg-transparent border-0"
                             data-type="a1_answer" aria-label="Toggle password visibility">
@@ -366,7 +268,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <!-- Q2 -->
                 <div class="col-md-4 ">
-                    <select id="a2_question" class="form-control " name="a2_question" required data-validate="required|a2_question">
+                    <select id="a2_question" class="form-control " name="a2_question" required
+                        data-validate="required|a2_question">
                         <option value="" disabled selected hidden>Select Question 2</option>
                         <option value="dream_job">What was your dream job when you were a kid?</option>
                         <option value="favorite_movie">What is your all-time favorite movie?</option>
@@ -379,7 +282,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     <div class="position-relative mt-1">
                         <input type="password" id="a2_answer" name="a2_answer" class="form-control" required
-                            placeholder="Enter your answer"  data-validate="required|a2_answer">
+                            placeholder="Enter your answer" data-validate="required|a2_answer">
                         <button type="button"
                             class="toggle-password-btn position-absolute  translate-middle-y bg-transparent border-0"
                             data-type="a2_answer" aria-label="Toggle password visibility">
@@ -391,7 +294,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <!-- Q3 -->
                 <div class="col-md-4">
-                    <select id="a3_question" class="form-control " name="a3_question" required data-validate="required|a3_question">
+                    <select id="a3_question" class="form-control " name="a3_question" required
+                        data-validate="required|a3_question">
                         <option value="" disabled selected hidden>Select Question 3</option>
                         <option value="first_job">What was your first part-time or summer job?</option>
                         <option value="favorite_book">Which book has influenced you the most?</option>
@@ -418,10 +322,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" class="mt-3 btn btn-success w-25">Register</button>
             </div>
         </form>
-</main>
-<footer>
-    <p>&copy; 2025 Brewstack Coffee — All rights reserved.</p>
-</footer>
+    </main>
+    <footer>
+        <p>&copy; 2025 Brewstack Coffee — All rights reserved.</p>
+    </footer>
 
 
     <script type="module" src="../js/register.js"></script>

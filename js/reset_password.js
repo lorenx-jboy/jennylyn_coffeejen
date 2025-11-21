@@ -221,8 +221,9 @@ async function apiAuthenticate(form) {
         s.disabled = result.success;
     });
 
-    // console.warn('API RESULT authenticate questions:', result);
+    console.warn('API RESULT authenticate questions:', result);
     return result;
+
 }
 
 async function apiResetPassword(form) {
