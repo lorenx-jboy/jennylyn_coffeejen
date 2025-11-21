@@ -104,16 +104,18 @@ const update = () => {
 // Event listeners
 passwordInput.addEventListener("input", update);
 passwordConfirmInput.addEventListener("input", update);
-update();
 
+/* ────────────────────────────
+    FORCE DISABLE FIELDS FUNCTION
+────────────────────────────── */
 
+function disableAuthQuestions(disable = true) {
+    const selects = document.querySelectorAll('.authQuestion');
+    const inputs = document.querySelectorAll('.authAnswer');
 
-
-
-
-
-
-
+    selects.forEach(select => select.disabled = disable);
+    inputs.forEach(input => input.disabled = disable);
+}
 
 /* ──────────────────────────────
     TOGGLE FIELD
@@ -189,11 +191,15 @@ async function apiCheckUserId() {
 
     if (s) {
         setState({ validId: true, username: result.username });
+        userIdInput.parentElement.querySelector('.invalid-feedback').textContent = result.message;
+        userIdInput.classList.remove('is-invalid');
     } else {
         setState({ validId: false, validAuth: false, complete: false });
+        userIdInput.classList.add('is-invalid');
+        userIdInput.parentElement.querySelector('.invalid-feedback').textContent = result.message;
         userIdInput.focus();
     }
-
+    // console.warn('API RESULT check user id:', result);
     return result;
 }
 
@@ -201,8 +207,21 @@ async function apiAuthenticate(form) {
     const data = Object.fromEntries(new FormData(form));
     const result = await post(urls.authenticateQuestions, data);
     if (result.success) setState({ validAuth: true });
+    
     toggleField();
 
+    
+    const selects = document.querySelectorAll('.authQuestion');
+    const inputs = document.querySelectorAll('.authAnswer');
+
+    selects.forEach(s => {
+        s.classList.toggle('is-invalid', result.success === false);
+        const msgEl = s.parentElement.querySelector('.invalid-feedback');
+        if (msgEl) msgEl.textContent = result.message;
+        s.disabled = result.success;
+    });
+
+    // console.warn('API RESULT authenticate questions:', result);
     return result;
 }
 
@@ -215,7 +234,9 @@ async function apiResetPassword(form) {
         clearFormData();
         window.location.href = "login.php";
     }
+    passwordInput.focus();
 
+    // console.warn('API RESULT reset password:', result);
     return result;
 }
 
@@ -256,12 +277,15 @@ function updateUI() {
     if (state.validId && !state.validAuth) {
         form.dataset.submit = "verifyAnswers";
         stageTitle = "Verify Answers";
+
     } else if (state.validId && state.validAuth) {
         form.dataset.submit = "resetPassword";
         stageTitle = "Reset Password";
+        update();
     } else {
         form.dataset.submit = "verifyUserID";
         stageTitle = "Verify ID";
+
     }
 
     const selects = document.querySelectorAll('.authQuestion');

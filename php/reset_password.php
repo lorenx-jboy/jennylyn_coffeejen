@@ -105,12 +105,20 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
 
     <main>
         <!-- MAIN CONTAINER -->
+<<<<<<< Updated upstream
         <form id="password-reset-form" class="container p-4 mt-3 d-flex flex-column rounded-2"
             style="max-width: 800px; height: 80vh;" data-submit="verifyUserID">
             <h3 class="text-warning text-shadow text-center">🔐 Reset Password</h3>
             <p class="text-center text-light">Enter your ID Number to answer Authentication questions and reset your
                 password.</p>
             <br>
+=======
+    <form id="password-reset-form" class="container p-4 mt-3 d-flex flex-column rounded-2"
+    data-submit="verifyUserID">
+        <h3 class="text-warning text-shadow text-center">🔐 Reset Password</h3>
+        <p class="text-center text-light">Enter your ID Number to answer Authentication questions and reset your password.</p>
+        <br>
+>>>>>>> Stashed changes
 
             <div class="row flex-grow-1">
                 <!-- Right Column: Email + Password Fields -->
@@ -159,6 +167,10 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                         </div>
                         <div class="invalid-feedback">Password confirmation does not match.</div>
                     </div>
+
+                    <div id="password-strength"></div>
+                    <div class="invalid-feedback">Password is required.</div>
+
                 </div>
 
                 <!-- Left Column: Authentication Questions Only -->
@@ -242,11 +254,78 @@ if (isset($_POST['resetPassword']) && isset($_SESSION['verified_idNo'])) {
                 </div>
             </div>
 
-            <!-- Submit button always at the bottom -->
+
+            <!-- Submit button always at the bottom --
             <div class="mt-3 mx-auto">
                 <button type="submit" class="btn btn-success w-100  " name="verifyAnswers">Authenticate
                     Questions</button>
-            </div>
+            <!-- Left Column: Authentication Questions Only --
+            <div class="col-md-6">
+                <label class="form-label">Authentication Questions</label>
+                
+                <!-- Question 1 --
+                <div class="mb-2 position-relative">
+                    <select class="form-select form-control authQuestion" id="authQuestion1Select" name="" required>
+                        <option value="" disabled selected hidden>Select Question 1</option>
+                        <option value="teacher">Who is your favorite teacher in high school?</option>
+                        <option value="pet">What is the name of your favorite pet?</option>
+                        <option value="best_friend">Who is your best friend in Elementary?</option>
+                        <option value="first_car">What was the make or model of your first car?</option>
+                        <option value="childhood_game">What was your favorite game as a child?</option>
+                        <option value="favorite_food">What is your favorite food?</option>
+                    </select>
+                    <!-- <div class="invalid-feedback text-warning">Question is required.</div> --
+                    <div class="input-group mt-2">
+                        <input type="password" class="form-control authAnswer" name="auth_answer_1" placeholder="Answer to question 1" required>
+                        <button type="button" class="toggle-password-btn position-absolute translate-middle-y bg-transparent border-0" data-type="password" aria-label="Toggle password visibility">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                    <div class="invalid-feedback text-warning">Answer is required.</div>
+                </div>
+
+                <!-- Question 2 --
+                <div class="mb-2 position-relative">
+                    <select class="form-select form-control authQuestion" id="authQuestion2Select" name="auth_question_2" required>
+                        <option value="" disabled selected hidden>Select Question 2</option>
+                        <option value="dream_job">What was your dream job when you were a kid?</option>
+                        <option value="favorite_movie">What is your all-time favorite movie?</option>
+                        <option value="travel_destination">Which country would you love to visit the most?</option>
+                        <option value="hobby">What hobby do you enjoy the most?</option>
+                        <option value="childhood_memory">What is your happiest childhood memory?</option>
+                        <option value="superpower">If you could have any superpower, what would it be?</option>
+                    </select>
+                    <!-- <div class="invalid-feedback text-warning">Question is required.</div> --
+                    <div class="input-group mt-2">
+                        <input type="password" class="form-control authAnswer" name="auth_answer_2" placeholder="Answer to question 2" required>
+                        <button type="button" class="toggle-password-btn position-absolute translate-middle-y  bg-transparent border-0" data-type="password" aria-label="Toggle password visibility">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                    <div class="invalid-feedback text-warning">Answer is required.</div>
+                </div>
+
+                <!-- Question 3 --
+                <div class="position-relative">
+                    <select class="form-select form-control authQuestion" id="authQuestion3Select" name="auth_question_3" required>
+                        <option value="" disabled selected hidden>Select Question 3</option>
+                        <option value="first_job">What was your first part-time or summer job?</option>
+                        <option value="favorite_book">Which book has influenced you the most?</option>
+                        <option value="childhood_nickname">Did you have a childhood nickname? What was it?</option>
+                        <option value="proud_moment">What is a moment in your life that made you really proud?</option>
+                        <option value="fear">What is a fear you’ve overcome or still have?</option>
+                        <option value="hidden_talent">Do you have a hidden talent? What is it?</option>
+                    </select>
+                    <!-- <div class="invalid-feedback text-warning">Question is required.</div> --
+                    <div class="input-group mt-2">
+                        <input type="password" class="form-control authAnswer" name="auth_answer_3" placeholder="Answer to question 3" required>
+                        <button type="button" class="toggle-password-btn position-absolute translate-middle-y  bg-transparent border-0" data-type="password" aria-label="Toggle password visibility">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                    <div class="invalid-feedback text-warning">Answer is required.</div>
+                </div>
+            </div>-->
         </form>
     </main>
 

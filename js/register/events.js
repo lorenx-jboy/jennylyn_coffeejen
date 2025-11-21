@@ -1,4 +1,5 @@
 import { validations } from "./validation/validators.js";
+import { checkEmailExists, checkUsernameExists } from "./api.js";
 
 function updatePasswordStrength(strength) {
     const bar = document.querySelector(".password-strength-bar .strength-fill");
@@ -16,7 +17,7 @@ function updatePasswordStrength(strength) {
 export function bindValidation(form){
     form.querySelectorAll('[data-validate]').forEach(field => {
         const errorEl = field.parentElement.querySelector('.error-message');
-        field.addEventListener('input', () => {
+        field.addEventListener('input', async () => {
             const rules = field.dataset.validate.split('|');
             let result = { valid: true, message: '' };
 
@@ -33,6 +34,23 @@ export function bindValidation(form){
                     }
 
                     if (!result.valid) break;
+                }
+            }
+
+            // Async checks
+            if (result.valid && rules.includes("email")) {
+                const exists = await checkEmailExists(field.value); // implement this
+                console.log("check email",exists);
+                if (exists.success) {
+                    result = { valid: false, message: "Email already exists." };
+                }
+            }
+
+            if (result.valid && rules.includes("username")) {
+                const exists = await checkUsernameExists(field.value); // implement this
+                console.log("check username",exists);
+                if (exists.success) {
+                    result = { valid: false, message: "Username already exists." };
                 }
             }
 
