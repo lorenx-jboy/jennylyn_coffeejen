@@ -30,8 +30,7 @@ SET time_zone = "+00:00";
 
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `id_number` varchar(20) NOT NULL,
+  `id_number` varchar(20) NOT NULL PRIMARY KEY,
   `first_name` varchar(50) NOT NULL,
   `middle_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) NOT NULL,
@@ -56,7 +55,7 @@ CREATE TABLE `users` (
   `a3_question` varchar(100) NOT NULL,
   `a3_answer` varchar(100) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Dumping data for table `users`
