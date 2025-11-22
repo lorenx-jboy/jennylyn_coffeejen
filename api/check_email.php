@@ -12,7 +12,7 @@ $stmt->execute([':email' => $email]);
 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$row) {
-    echo json_encode(["success" => false, "message" => "Email not found.", "email" => $email, "user" => $row['email']]);
+    echo json_encode(["success" => false, "message" => "Email not found.", "email" => $email]);
     exit;
 }
 

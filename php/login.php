@@ -61,7 +61,9 @@ $errorMsg = $_SESSION['error'] ?? '';
                     <input type="text" id="login-username" name="username" class="<?= $errorMsg ? 'is-invalid' : '' ?>"
                         value="<?= htmlspecialchars($username ?? '') ?>" required pattern=".{3,}">
 
-                    <small class="error-message invalid-feedback"><?= htmlspecialchars($errorMsg) ? $errorMsg : 'Invalid username or password.' ?> </small>
+                    <small
+                        class="error-message invalid-feedback"><?= htmlspecialchars($errorMsg) ? $errorMsg : 'Invalid username or password.' ?>
+                    </small>
                 </div>
 
                 <div class="form-group">
@@ -75,7 +77,9 @@ $errorMsg = $_SESSION['error'] ?? '';
                             <i class="bi bi-eye"></i>
                         </button>
 
-                        <small class="error-message invalid-feedback"><?= htmlspecialchars($errorMsg) ? $errorMsg : 'Invalid username or password.' ?> </small>
+                        <small
+                            class="error-message invalid-feedback"><?= htmlspecialchars($errorMsg) ? $errorMsg : 'Invalid username or password.' ?>
+                        </small>
                     </div>
                 </div>
 

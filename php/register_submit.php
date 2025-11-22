@@ -61,29 +61,29 @@ try {
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $id_number = $_POST['id_number'];
-    $first_name = $_POST['first_name'];
-    $middle_name = $_POST['middle_name'] ?? '';
-    $last_name = $_POST['last_name'];
-    $extension_name = $_POST['extension_name'] ?? '';
-    $sex = $_POST['sex'];
-    $birthdate = $_POST['birthdate'];
-    $age = $_POST['age'] ?? null;
-    $purok = $_POST['purok'];
-    $barangay = $_POST['barangay'];
-    $city = $_POST['city'];
-    $province = $_POST['province'];
-    $country = $_POST['country'];
-    $zip_code = $_POST['zipcode'];
-    $email = $_POST['email'];
-    $username = $_POST['username'];
-    $password =$_POST['password'];
-    $a1_question = $_POST['a1_question'];
-    $a1_answer = $_POST['a1_answer'];
-    $a2_question = $_POST['a2_question'];
-    $a2_answer = $_POST['a2_answer'];
-    $a3_question = $_POST['a3_question'];
-    $a3_answer = $_POST['a3_answer'];
+    $id_number = trim($_POST['id_number']);
+    $first_name =trim( $_POST['first_name']);
+    $middle_name =trim( $_POST['middle_name']) ?? '';
+    $last_name =trim( $_POST['last_name']);
+    $extension_name =trim( $_POST['extension_name']) ?? '';
+    $sex =trim( $_POST['sex']);
+    $birthdate = trim($_POST['birthdate']);
+    $age =trim( $_POST['age']) ?? null;
+    $purok = trim($_POST['purok']);
+    $barangay = trim($_POST['barangay']);
+    $city = trim($_POST['city']);
+    $province =trim( $_POST['province']);
+    $country = trim($_POST['country']);
+    $zip_code = trim($_POST['zipcode']);
+    $email = trim($_POST['email']);
+    $username =trim( $_POST['username']);
+    $password =trim($_POST['password']);
+    $a1_question = trim($_POST['a1_question']);
+    $a1_answer =trim( $_POST['a1_answer']);
+    $a2_question =trim( $_POST['a2_question']);
+    $a2_answer =trim( $_POST['a2_answer']);
+    $a3_question =trim( $_POST['a3_question']);
+    $a3_answer =trim( $_POST['a3_answer']);
 
     try {
         $stmt = $pdo->prepare("

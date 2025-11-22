@@ -4,6 +4,7 @@ header("Content-Type: application/json");
 
 $data = json_decode(file_get_contents("php://input"), true);
 
+
 $id = trim($data["user_id"]);
 $q1 = trim($data["auth_question_1"]);
 $q2 = trim($data["auth_question_2"]);
@@ -31,4 +32,3 @@ if ($matches >= 2) {
 } else {
     echo json_encode(["success" => false, "message" => "Security answers or questions are incorrect."]);
 }
-
