@@ -32,7 +32,7 @@ $errorMsg = $_SESSION['error'] ?? '';
     <link rel="stylesheet" href="../css/login.css">
 
     <link rel="stylesheet" href="../css/style.css">
-
+    <script defer src="../js/login_script.js"></script>
 </head>
 
 
@@ -46,6 +46,10 @@ $errorMsg = $_SESSION['error'] ?? '';
             <?php if ($remaining > 0): ?>
             <div class="server-message">
                 Too many failed attempts. Please wait <span id="countdown"><?= $remaining ?></span> second(s).
+            </div>
+            <?php else: ?>
+            <div class="server-message" style="display:none">
+                Too many failed attempts. Please wait <span id="countdown"></span> second(s).
             </div>
             <?php endif; ?>
 
@@ -94,63 +98,6 @@ $errorMsg = $_SESSION['error'] ?? '';
     <footer>
         <p>&copy; 2025 Brewstack Coffee System. All rights reserved.</p>
     </footer>
-
-    <script>
-    // Password toggle
-    const toggleBtn = document.querySelector('.toggle-password-btn');
-    const passwordInput = document.getElementById('login-password');
-    toggleBtn.addEventListener('click', () => {
-        const type = passwordInput.type === 'password' ? 'text' : 'password';
-        passwordInput.type = type;
-        toggleBtn.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' :
-            '<i class="fas fa-eye-slash"></i>';
-    });
-
-    // Disable login/register if lock exists
-    <?php if ($remaining > 0): ?>
-    const loginBtn = document.getElementById('login-button');
-    const registerLinkHeader = document.getElementById('register-link-header');
-    // const registerLinkFooter = document.getElementById('register-link-footer');
-    const serverMessage = document.querySelector('.server-message');
-
-    loginBtn.disabled = true;
-    registerLinkHeader.classList.add('disabled'); // Disable header register link
-    // registerLinkFooter.classList.add('disabled'); // Disable footer register link
-
-    let remainingSeconds = <?= $remaining ?>;
-    const countdownEl = document.getElementById('countdown');
-    serverMessage.style.display = 'block';
-
-    const interval = setInterval(() => {
-        remainingSeconds--;
-        countdownEl.textContent = remainingSeconds;
-        if (remainingSeconds <= 0) {
-            clearInterval(interval);
-            loginBtn.disabled = false;
-            registerLinkHeader.classList.remove('disabled'); // Re-enable header register link
-            // registerLinkFooter.classList.remove('disabled'); // Re-enable footer register link
-            serverMessage.style.display = 'none';
-        }
-    }, 1000);
-    <?php endif; ?>
-
-    // Client-side form validation
-    const form = document.getElementById('login-form');
-    form.addEventListener('submit', function(event) {
-        if (!form.checkValidity()) {
-            event.preventDefault();
-            event.stopPropagation();
-            form.querySelectorAll('input').forEach(input => {
-                if (!input.checkValidity()) {
-                    input.classList.add('is-invalid');
-                } else {
-                    input.classList.remove('is-invalid');
-                }
-            });
-        }
-    });
-    </script>
-
+    
 </body>
-
 </html>
